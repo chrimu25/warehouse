@@ -15,6 +15,8 @@ class CreateProductSlotTable extends Migration
     {
         Schema::create('product_slot', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('slot_id')->constrained();
             $table->timestamps();
         });
     }

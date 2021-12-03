@@ -57,65 +57,82 @@ class InsertItems extends Component
             'items.*.quantity'=>'required|integer',
             'items.*.unity'=>'required|integer',
             'items.*.duration'=>'required|integer',
+        ],[
+            
         ]);
         foreach($this->items as $key=>$item){
-            $slots = Auth::user()->warehouse->slots()->where('category_id',$item['category'])
-            ->where('unity_id',$item['unity'])->orderByDesc('remaining')->get();
-            // dd($slots->count());
-            $this->quantity1 = 0;
-            foreach($slots as $slot){
-                $this->quantity1 += $slot->remaining;
-            }
+            // $product = Product::create([
+            //     'item_id'=>$item['item'],
+            //     'quantity'=>$item['quantity'],
+            //     'owner_id'=>$this->owner,
+            //     'category_id'=>$item['category'],
+            //     'unity_id'=>$item['unity'],
+            //     'status'=>'Approved',
+            //     'warehouse_id'=>Auth::user()->warehouse->id,
+            //     'incharge'=>Auth::id(),
+            //     'duration'=>$item['duration']
+            // ]);
+            // $slots->products()->sync($product);
+            $slots = Auth::user()->slots->where('category_id',$item['category'])
+            ->where('unity_id',$item['unity'])->sum('remaining', 'as','remaining_size');
+            dd($slots);
+            // ->where('category_id',$item['category'])
+            // ->where('unity_id',$item['unity'])->orderByDesc('remaining')->get();
+            // // // dd($slots->count());
+            // $this->quantity1 = 0;
+            // foreach($slots as $slot){
+            //     $this->quantity1 += $slot->remaining;
+            // }
             
-            if ($this->quantity1 >= $item['quantity']) {
-                foreach($slots as $slot){
-                    $stock =$item['quantity'] ;
-                    while($stock>0){
-                        if($slot->remaining >= $stock){
-                            Product::create([
-                                'item_id'=>$item['item'],
-                                'quantity'=>$stock,
-                                'owner_id'=>$this->owner,
-                                'category_id'=>$item['category'],
-                                'unity_id'=>$item['unity'],
-                                'status'=>'Approved',
-                                'warehouse_id'=>Auth::user()->warehouse->id,
-                                'incharge'=>Auth::id(),
-                                'duration'=>$item['duration']
-                            ]);
-                            $slot->update([
-                                'remaining' => $slot->remaining -$stock,
-                            ]);
-                            unset($this->items[$key]);
-                            $this->items = array_values($this->items);
-                            // break;
-                        }else{
-                            Product::create([
-                                'item_id'=>$item['item'],
-                                'quantity'=>$slot->remaining,
-                                'owner_id'=>$this->owner,
-                                'category_id'=>$item['category'],
-                                'unity_id'=>$item['unity'],
-                                'status'=>'Approved',
-                                'warehouse_id'=>Auth::user()->warehouse->id,
-                                'incharge'=>Auth::id(),
-                                'duration'=>$item['duration']
-                            ]);
-                            $slot->update([
-                                'remaining' => 0,
-                            ]);
-                        }
-                        $stock -= $slot->remaining;
-                        // $stock
-                    }
-                    //uns
-                        //break
+            // if ($this->quantity1 >= $item['quantity']) {
+            //     foreach($slots as $slot){
+            //         $stock =$item['quantity'] ;
+            //         while($stock>0){
+            //             if($slot->remaining >= $stock){
+            //                 Product::create([
+            //                     'item_id'=>$item['item'],
+            //                     'quantity'=>$stock,
+            //                     'owner_id'=>$this->owner,
+            //                     'category_id'=>$item['category'],
+            //                     'unity_id'=>$item['unity'],
+            //                     'status'=>'Approved',
+            //                     'warehouse_id'=>Auth::user()->warehouse->id,
+            //                     'incharge'=>Auth::id(),
+            //                     'duration'=>$item['duration']
+            //                 ]);
+            //                 $slot->update([
+            //                     'remaining' => $slot->remaining -$stock,
+            //                 ]);
+            //                 unset($this->items[$key]);
+            //                 $this->items = array_values($this->items);
+            //                 // break;
+            //             }else{
+            //                 Product::create([
+            //                     'item_id'=>$item['item'],
+            //                     'quantity'=>$slot->remaining,
+            //                     'owner_id'=>$this->owner,
+            //                     'category_id'=>$item['category'],
+            //                     'unity_id'=>$item['unity'],
+            //                     'status'=>'Approved',
+            //                     'warehouse_id'=>Auth::user()->warehouse->id,
+            //                     'incharge'=>Auth::id(),
+            //                     'duration'=>$item['duration']
+            //                 ]);
+            //                 $slot->update([
+            //                     'remaining' => 0,
+            //                 ]);
+            //             }
+            //             $stock -= $slot->remaining;
+            //             // $stock
+            //         }
+            //         //uns
+            //             //break
                     
-                }
-            } else{
-                session()->flash('insert-error','Our Slot is not enough! only '.$this->quantity1.' short to store '.$item['quantity']);
-                return;
-            }
+            //     }
+            // } else{
+            //     session()->flash('insert-error','Our Slot is not enough! only '.$this->quantity1.' short to store '.$item['quantity']);
+            //     return;
+            // }
         }
 
         session()->flash('success',' Items Inserted Successfully!');
