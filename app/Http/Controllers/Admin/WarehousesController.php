@@ -32,6 +32,14 @@ class WarehousesController extends Controller
         } else{
             $image = NULL;
         }
+        $user = User::create([
+            'name'=>$request->mname,
+            'email'=>$request->memail,
+            'password'=>Hash::make('manager@password'),
+            'phone'=>$request->mphone,
+            'role'=>'Manager',
+            'nid'=>null,
+        ]);
 
         $warehouse = Warehouse::create([
             'name'=>$request->name,
@@ -44,20 +52,12 @@ class WarehousesController extends Controller
             'cell_id'=>$request->cell,
             'category_id'=>$request->filled('category')?$request->category:NULL,
             'owner'=>$request->owner,
+            'user_id'=>$user->id,
             'fork_lifter'=>$request->fork_lifter,
             'num_of_slots'=>$request->slots,
             'picture'=>$image
         ]);
 
-        $user = User::create([
-            'name'=>$request->mname,
-            'email'=>$request->memail,
-            'password'=>Hash::make('manager@password'),
-            'phone'=>$request->mphone,
-            'role'=>'Manager',
-            'warehouse_id'=>$warehouse->id,
-            'nid'=>null,
-        ]);
 
         return back()->with('success','Warehouse Inserted Successfully!');
     }
