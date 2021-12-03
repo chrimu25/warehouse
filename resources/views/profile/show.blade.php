@@ -14,31 +14,39 @@
             @endif
 
             @if (Laravel\Fortify\Features::enabled(Laravel\Fortify\Features::updatePasswords()))
-                <div class="mt-10 sm:mt-0">
+               <div class='mt-5'>
+                <div class="mt-5 sm:mt-0">
                     @livewire('profile.update-password-form')
                 </div>
 
                 <x-jet-section-border />
+               </div>
             @endif
 
             @if (Laravel\Fortify\Features::canManageTwoFactorAuthentication())
-                <div class="mt-10 sm:mt-0">
+               <div class="mt-5">
+                 <div class="mt-5 sm:mt-0">
                     @livewire('profile.two-factor-authentication-form')
                 </div>
 
                 <x-jet-section-border />
+               </div>
             @endif
-
-            <div class="mt-10 sm:mt-0">
+            <div class="mt-5">
+            <div class="mt-5 sm:mt-0">
                 @livewire('profile.logout-other-browser-sessions-form')
+            </div>
             </div>
 
             @if (Laravel\Jetstream\Jetstream::hasAccountDeletionFeatures())
+
+            <div class="mt-5">
                 <x-jet-section-border />
 
-                <div class="mt-10 sm:mt-0">
+                <div class="mt-5 sm:mt-0">
                     @livewire('profile.delete-user-form')
                 </div>
+            </div>
             @endif
         </div>
     </div>

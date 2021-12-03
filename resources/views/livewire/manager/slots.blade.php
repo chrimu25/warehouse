@@ -26,7 +26,7 @@
         </x-slot>
         @forelse ($slots as $slot)
         <x-table.row>
-          <x-table.cell class="checkbox-cell"> 
+          <x-table.cell class="checkbox-cell">
             <label class="checkbox">
               <input type="checkbox">
               <span class="check"></span>
@@ -36,30 +36,30 @@
           <x-table.cell data-label="Name"> {{$slot->name}}</x-table.cell>
           <x-table.cell data-label="Category"> {{$slot->category->name}} </x-table.cell>
           <x-table.cell data-label="Unity"> {{$slot->unity->name}} </x-table.cell>
-          <x-table.cell data-label="Size"> 
+          <x-table.cell data-label="Size">
             @if ($slot->remaining==0)
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 
+              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100
               text-red-800">Full</span>
             @elseif ($slot->remaining<=3)
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 
+            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100
             text-yellow-800">Running out: {{$slot->remaining}}</span>
             @else
-            {{$slot->remaining.__('/').$slot->size}} 
+            {{$slot->remaining.__('/').$slot->size}}
             @endif
           </x-table.cell>
-          <x-table.cell data-label="Options" class="flex justify-between"> 
-              <button class="bg-red-300 px-2 py-1" wire:loading.attr="loading" wire:click="delete({{$slot->id}})" 
-                onclick="confirm('Are you sure about this?') || event.stopImmediatePropagation();">delete</button> 
-              <button class="bg-green-300 px-2 py-1" wire:click="edit({{$slot->id}})">Edit</button> 
+          <x-table.cell data-label="Options" class="flex justify-between">
+              <button class="bg-red-300 px-2 py-1" wire:loading.attr="loading" wire:click="delete({{$slot->id}})"
+                onclick="confirm('Are you sure about this?') || event.stopImmediatePropagation();">delete</button>
+              <button class="bg-green-300 px-2 py-1" wire:click="edit({{$slot->id}})">Edit</button>
             </x-table.cell>
         </x-table.row>
         @empty
-        <x-table.empty-div></x-table.empty-div>
+        <x-table.empty-div> 7 </x-table.empty-div>
         @endforelse
       </x-table>
       <x-table.pagination>
         {{$slots->links()}}
-      </x-table.pagination>   
+      </x-table.pagination>
     </div>
     <div class="bg-white shadow-sm py-2 px-4 rounded ">
       <div class="sm:mt-0">
@@ -68,9 +68,9 @@
             <h3 class="text-2xl font-bold">Insert New Slot</h3>
             <form wire:submit.prevent="store" method="POST">
                 @csrf
-                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="py-5 bg-white ">
                     <x-jet-label for="size" value="{{ __('Slot Size') }}" />
-                    <x-jet-input id="size" type="number" class="mt-1 block w-full"
+                    <x-jet-input id="size" type="number" class="mt-1 w-full"
                       wire:model.defer="size" autocomplete="size" />
                     <x-jet-input-error for="size" class="mt-2" />
                 </div>

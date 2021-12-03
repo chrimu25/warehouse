@@ -30,7 +30,7 @@ class UserFactory extends Factory
             'phone'=>$this->faker->unique()->phoneNumber(),
             'nid'=>'119'.rand(10,10000000000000),
             // 'role'=>$this->random("Admin","Manager","Client"),
-            'role'=>$this->faker->randomElement(["Manager","Client"]),
+            'role'=>$this->faker->randomElement(["Manager","Client","Admin"]),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
