@@ -42,7 +42,7 @@
             </x-table.cell>
         </x-table.row>
         @empty
-        <x-table.empty-div></x-table.empty-div>
+        <x-table.empty-div>5</x-table.empty-div>
         @endforelse
       </x-table>
       <x-table.pagination>
@@ -56,7 +56,7 @@
             <h3 class="text-2xl font-bold">Create New Product</h3>
             <form wire:submit.prevent="store" method="POST">
                 @csrf
-                <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                <div class="py-5 bg-white ">
                   <x-jet-label for="product" value="{{ __('Product') }}" />
                   <x-jet-input id="product" type="text" class="mt-1 block w-full"
                     wire:model.defer="product" autocomplete="product" />
