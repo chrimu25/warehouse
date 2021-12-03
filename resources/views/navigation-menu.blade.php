@@ -239,7 +239,7 @@
           <a class="navbar-link">
             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                 <div class="flex-shrink-0 mr-3">
-                    <img class="h-10 w-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                    <img class="h-10 w-10 rounded-full object-cover" src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt="{{ Auth::user()->name }}" />
                 </div>
             @endif
             {{-- <div class="h-7 w-7 bg-blue-400 uppercase rounded-full mr-2 text-center text-white font-bold text-xl">
@@ -318,37 +318,37 @@
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="#!">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Items</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('admin.warehouses') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Warehouses</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('admin.managers') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Managers</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{route('admin.clients')}}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Clients</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('admin.categories') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Categories</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('admin.unities') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Unities</span>
             </a>
@@ -363,9 +363,15 @@
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.slots') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Items</span>
+              <span class="menu-item-label">Slots</span>
+            </a>
+        </li>
+        <li class="--set-active-tables-html">
+            <a href="{{ route('manager.products') }}">
+              <span class="icon"><i class="mdi mdi-table"></i></span>
+              <span class="menu-item-label">Products</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
@@ -387,7 +393,7 @@
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.clients') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Clients</span>
             </a>

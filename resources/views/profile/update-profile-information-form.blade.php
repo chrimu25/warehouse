@@ -6,7 +6,7 @@
     <x-slot name="description">
         {{ __('Update your account\'s profile information and email address.') }}
     </x-slot>
-
+ 
     <x-slot name="form">
         <!-- Profile Photo -->
         @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
@@ -28,7 +28,7 @@
 
                 <!-- Current Profile Photo -->
                 <div class="mt-2" x-show="! photoPreview">
-                    <img src="{{ $this->user->profile_photo_url }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
+                    <img src="{{ Storage::url($this->user->profile_photo_path) }}" alt="{{ $this->user->name }}" class="rounded-full h-20 w-20 object-cover">
                 </div>
 
                 <!-- New Profile Photo Preview -->
@@ -64,6 +64,20 @@
             <x-jet-label for="email" value="{{ __('Email') }}" />
             <x-jet-input id="email" type="email" class="mt-1 block w-full" wire:model.defer="state.email" />
             <x-jet-input-error for="email" class="mt-2" />
+        </div>
+
+        <!-- Email -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="phone" value="{{ __('Phone Number') }}" />
+            <x-jet-input id="phone" type="tel" class="mt-1 block w-full" wire:model.defer="state.phone" />
+            <x-jet-input-error for="phone" class="mt-2" />
+        </div>
+
+        <!-- Email -->
+        <div class="col-span-6 sm:col-span-4">
+            <x-jet-label for="nid" value="{{ __('National ID') }}" />
+            <x-jet-input id="nid" type="text" class="mt-1 block w-full" wire:model.defer="state.nid" />
+            <x-jet-input-error for="nid" class="mt-2" />
         </div>
     </x-slot>
 

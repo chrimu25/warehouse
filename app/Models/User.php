@@ -30,6 +30,8 @@ class User extends Authenticatable
         'phone',
         'role',
         'nid',
+        'warehouse_id',
+        'status'
     ];
 
     /**
@@ -61,4 +63,43 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    /**
+     * Get the warehouse associated with the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
+    }
+
+    public function province()
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(District::class);
+    }
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
+    public function cell()
+    {
+        return $this->belongsTo(Cell::class);
+    }
+
+    /**
+     * Get all of the items for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(Product::class, 'owner_id', 'id');
+    }
 }
