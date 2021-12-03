@@ -33,9 +33,9 @@ class Slot extends Model
         return $this->belongsTo(Unity::class);
     }
 
-    public function product()
+    public function products()
     {
-        return $this->hasOne(Product::class);
+        return $this->belongsToMany(Product::class);
     }
 
     public static function boot()

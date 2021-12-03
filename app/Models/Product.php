@@ -41,9 +41,9 @@ class Product extends Model
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 
-    public function slot()
+    public function slots()
     {
-        return $this->belongsTo(Slot::class, 'slot_id', 'id');
+        return $this->belongsToMany(Slot::class, 'slot_id', 'id');
     }
 
     public function incharge()

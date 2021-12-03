@@ -30,7 +30,6 @@ class User extends Authenticatable
         'phone',
         'role',
         'nid',
-        'warehouse_id',
         'status'
     ];
 
@@ -71,7 +70,7 @@ class User extends Authenticatable
      */
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
+        return $this->hasOne(Warehouse::class);
     }
 
     public function province()
@@ -101,5 +100,15 @@ class User extends Authenticatable
     public function items()
     {
         return $this->hasMany(Product::class, 'owner_id', 'id');
+    }
+
+    /**
+     * Get all of the slots for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function slots()
+    {
+        return $this->hasManyThrough(Slot::class, Warehouse::class);
     }
 }

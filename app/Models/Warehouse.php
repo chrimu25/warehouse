@@ -11,7 +11,7 @@ class Warehouse extends Model
     protected $fillable = [
         'name','code','email','phone','type',
         'province_id', 'district_id', 'sector_id', 'cell_id',
-        'category_id','owner','fork_lifter',
+        'category_id','owner','user_id','fork_lifter',
         'num_of_slots','active','picture']; 
 
     /**
@@ -21,7 +21,7 @@ class Warehouse extends Model
      */
     public function manager()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function category()

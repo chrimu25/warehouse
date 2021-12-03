@@ -49,7 +49,7 @@ class WarehousesRequest extends FormRequest
             'fork_lifter'=>'integer|nullable',
             'slots'=>'required|integer|min:1|max:5000',
             'province'=>'required|integer',
-            'district'=>'required|integer',
+            'district'=>'required|integer|lte:field',
             'sector'=>'required|integer',
             'cell'=>'required|integer',
             'image'=>'nullable|image|mimes:png,jpg,webp,svg|max:600',
