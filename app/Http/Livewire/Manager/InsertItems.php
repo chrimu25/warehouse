@@ -18,7 +18,7 @@ class InsertItems extends Component
     use LivewireAlert;
     protected $listeners = ['InsertItemsComponent' => '$refresh'];
     
-    public $users, $unities, $categories, $products, $slots, $items, $owner, $quantity1;
+    public $users, $products, $slots, $items, $owner, $quantity1;
 
     public function mount()
     {

@@ -127,11 +127,6 @@
                             </div>
                         </td>
                     </tr>
-                    @if (session()->has('insert-error'))
-                    <div class="px-4 py-3 leading-normal text-red-100 bg-red-700 rounded-lg" role="alert">
-                        <p>{{session('insert-error')}}</p>
-                    </div>
-                    @endif
                     @endforeach
                     <tr>
                         <td colspan="5" class="flex justify-end">

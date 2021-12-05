@@ -50,7 +50,7 @@ class WarehousesController extends Controller
             'district_id'=>$request->district, 
             'sector_id'=>$request->sector, 
             'cell_id'=>$request->cell,
-            'category_id'=>$request->filled('category')?$request->category:NULL,
+            'item_id'=>$request->filled('category')?$request->category:NULL,
             'owner'=>$request->owner,
             'user_id'=>$user->id,
             'fork_lifter'=>$request->fork_lifter,

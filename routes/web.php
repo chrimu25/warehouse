@@ -55,6 +55,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::middleware('role:client')->name('client.')->group(function () {
-        
+        Route::view('new-request', 'client.new-request')->name('requests.new');
     });
 });

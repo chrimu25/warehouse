@@ -184,14 +184,14 @@
 
         @if (Auth::user()->role == 'Client')
         <li>
-            <a class="dropdown">
+            <a class="dropdown" >
               <span class="icon"><i class="mdi mdi-view-list"></i></span>
               <span class="menu-item-label">Requests</span>
               <span class="icon"><i class="mdi mdi-plus"></i></span>
             </a>
             <ul>
               <li>
-                <a href="#void">
+                <a href="{{ route('client.requests.new') }}">
                   <span>New Request</span>
                 </a>
               </li>
