@@ -27,7 +27,7 @@
             <x-table.cell data-label="Item">
                 <div class="flex items-center sm:flex-column sm:items-start">
                     <div class="text-sm font-medium text-gray-900 block">
-                        {{$item->slot->name}}
+                        {{$item->item->name}}
                     </div> <br>
                     <div class="text-sm text-gray-500">
                         <span class="text-bold">{{$item->quantity}}</span>, {{$item->unity->name}}

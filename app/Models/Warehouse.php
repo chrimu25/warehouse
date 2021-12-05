@@ -11,7 +11,7 @@ class Warehouse extends Model
     protected $fillable = [
         'name','code','email','phone','type',
         'province_id', 'district_id', 'sector_id', 'cell_id',
-        'category_id','owner','user_id','fork_lifter',
+        'item_id','owner','user_id','fork_lifter',
         'num_of_slots','active','picture']; 
 
     /**
@@ -24,9 +24,9 @@ class Warehouse extends Model
         return $this->belongsTo(User::class,'user_id','id');
     }
 
-    public function category()
+    public function item()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Item::class);
     }
 
     public function province()

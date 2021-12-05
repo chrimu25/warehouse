@@ -29,10 +29,9 @@ class Items extends Component
 
     public function render()
     {
-        $items = Product::with('owner','category','unity','slot','incharge','item')
+        $items = Product::with('owner','category','unity','incharge','item')
                         ->where('item_id',$this->item->id)
                         ->orWhere('quantity','like','%'.$this->searchKey.'%')
-                        ->orWhere('duration','like','%'.$this->searchKey.'%')
                         ->orderByDesc('created_at')
                         ->paginate($this->perPage);
         return view('livewire.manager.items', compact('items'));

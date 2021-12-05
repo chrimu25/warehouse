@@ -19,7 +19,7 @@
           </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
-          <x-table.heading>Category</x-table.heading>
+          <x-table.heading>Item</x-table.heading>
           <x-table.heading>Unity</x-table.heading>
           <x-table.heading>Size</x-table.heading>
           <x-table.heading>Options</x-table.heading>
@@ -34,7 +34,7 @@
           </x-table.cell>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> {{$slot->name}}</x-table.cell>
-          <x-table.cell data-label="Category"> {{$slot->category->name}} </x-table.cell>
+          <x-table.cell data-label="Category"> {{$slot->item->name}} </x-table.cell>
           <x-table.cell data-label="Unity"> {{$slot->unity->name}} </x-table.cell>
           <x-table.cell data-label="Size">
             @if ($slot->remaining==0)
@@ -89,20 +89,23 @@
                 </div>
                 </div>
                 <div class="field">
-                <label for="category" class="label">Category</label>
+                <label for="item" class="label">Item</label>
                 <div class="select">
-                    <select name="category" wire:model="category">
-                        <option value="">-- Category --</option>
-                        @foreach ($categories as $item)
+                    <select name="item" wire:model="item">
+                        <option value="">-- item --</option>
+                        @foreach ($items as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>
                         @endforeach
                     </select>
-                    @error('category')
+                    @error('item')
                     <span class="text-red-700">{{$message}}</span>
                     @enderror
                 </div>
                 </div>
-                <button type="submit" class="inline-flex justify-center w-full py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                <button type="submit" class="inline-flex justify-center w-full py-2 px-4 border 
+                border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600
+                 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 
+                 focus:ring-indigo-500">
                   Save
                 </button>
             </form>
@@ -113,7 +116,7 @@
                 <div class="field">
                     <x-jet-label for="size" value="{{ __('Slot Size') }}" />
                     <x-jet-input id="size" type="number" class=""
-                      wire:model.defer="size" value="{{$size}}" autocomplete="size" />
+                      wire:model.defer="size" value="{{$size}}" readonly disabled autocomplete="size" />
                     <x-jet-input-error for="size" />
                 </div>
                 <div class="field">
@@ -131,15 +134,15 @@
                 </div>
                 </div>
                 <div class="field">
-                <label for="category" class="label">Category</label>
+                <label for="item" class="label">Item</label>
                 <div class="select">
-                    <select name="category" wire:model="category">
-                        <option value="">-- Category --</option>
-                        @foreach ($categories as $item)
+                    <select name="item" wire:model="item">
+                        <option value="">-- item --</option>
+                        @foreach ($items as $item)
                             <option value="{{$item->id}}" >{{$item->name}}</option>
                         @endforeach
                     </select>
-                    @error('category')
+                    @error('item')
                     <span class="text-red-700">{{$message}}</span>
                     @enderror
                 </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Slot extends Model
 {
@@ -13,7 +14,7 @@ class Slot extends Model
         'name',
         'size',
         'remaining',
-        'category_id',
+        'item_id',
         'unity_id',
         'warehouse_id',
     ];
@@ -23,14 +24,14 @@ class Slot extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function category()
+    public function item()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Item::class,'item_id','id');
     }
 
     public function unity()
     {
-        return $this->belongsTo(Unity::class);
+        return $this->belongsTo(Unity::class,'unity_id','id');
     }
 
     public function products()
@@ -43,7 +44,8 @@ class Slot extends Model
         parent::boot();
         static::creating(function($model){
             $lastCol = Slot::max('id');
-            $model->name = 'Slot' . str_pad($lastCol+1,6,'0',STR_PAD_LEFT);
+            $wh = Auth::user()->warehouse->id;
+            $model->name = 'SLT'.$wh . str_pad($lastCol+1,3,'0',STR_PAD_LEFT);
         });
     }
 }

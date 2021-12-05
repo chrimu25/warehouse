@@ -3,6 +3,16 @@
     @csrf
     <div class="field">
         <div class="field-body">
+            @if (session()->has('wh-warning'))
+            <div role="alert">
+                <div class="bg-red-500 text-white font-bold rounded-t px-4 py-2">
+                  Attention Needed
+                </div>
+                <div class="border border-t-0 border-red-400 rounded-b bg-red-100 px-4 py-3 text-red-700">
+                  <p>{{session()->get('wh-warning')}}</p>
+                </div>
+            </div>
+            @endif
             @if (Auth::user()->warehouse->slots->count() <1)
             <div class="flex flex-col p-8 bg-white shadow-md hover:shodow-lg rounded-2xl">
                 <div class="flex items-center justify-between">
@@ -28,7 +38,7 @@
                     <label class="label">Owner</label>
                     <div class="control">
                         <div class="select">
-                            <select name="owner" wire:model="owner">
+                            <select name="owner" wire:model.lazy="owner">
                                 <option value="">-- Select Item Owner --</option>
                                 @foreach ($users as $item)
                                     <option value="{{$item->id}}" {{$item->id==old('owner')?'selected':''}} 
@@ -55,7 +65,7 @@
                             <label for="item" class="label">Product</label>
                             <div class="select">
                             <select name="items[{{$index}}][item]" 
-                            wire:model="items.{{$index}}.item">
+                            wire:model.lazy="items.{{$index}}.item">
                                 <option value="">-- Product --</option>
                                 @foreach ($products as $item)
                                     <option value="{{$item->id}}">{{$item->name}}</option>
@@ -67,73 +77,45 @@
                             </div>
                         </td>
                         <td>
+                            <label for="quantity" class="label">Slots</label>
+                            <div class="select">
+                            <select name="items[{{$index}}][slot]"  
+                            wire:model.lazy="items.{{$index}}.slot">
+                                <option value="">slot</option> 
+                                @foreach ($slots as $item)
+                                    <option value="{{$item->id}}">
+                                        {{$item->name}},  
+                                        {{$item->unity->name}}, 
+                                        {{$item->remaining}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('items.'.$index.'.slot')
+                            <span class="text-red-700">{{$message}}</span>
+                            @enderror
+                            </div>
+                        </td>
+                        <td>
                             <label for="quantity" class="label">Quantity</label>
                             <input class="input @error('items.'.$index.'.quantity') border-red-600 @enderror" type="number" 
                             name="items[{{$index}}][quantity]" 
-                            wire:model="items.{{$index}}.quantity">
-                            @error('quantity.'.$index)
+                            wire:model.lazy="items.{{$index}}.quantity">
+                            @error('items.'.$index.'.quantity')
                             <span class="text-red-700">{{$message}}</span>
                             @enderror
-                        </td>
-                        <td>
-                            <label for="category" class="label">Category</label>
-                            <div class="select">
-                            <select name="items[{{$index}}][category]" 
-                            wire:model="items.{{$index}}.category">
-                                <option value="">Category</option>
-                                @foreach ($categories as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('items.'.$index.'.category')
-                            <span class="text-red-700">{{$message}}</span>
-                            @enderror
-                            </div>
-                        </td>
-                        <td>
-                            <label for="quantity" class="label">Unity</label>
-                            <div class="select">
-                            <select name="items[{{$index}}][unity]" 
-                            wire:model="items.{{$index}}.unity">
-                                <option value="">Unity</option>
-                                @foreach ($unities as $item)
-                                    <option value="{{$item->id}}">{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('items.'.$index.'.unity')
-                            <span class="text-red-700">{{$message}}</span>
-                            @enderror
-                            </div>
+                            <input type="hidden" value="{{$quantity1}}" name="items[{{$index}}][maxQuantity]" 
+                            wire:model.lazy="items.{{$index}}.maxQuantity">
                         </td>
                         <td>
                             <label for="duration" class="label">Duration</label>
                             <input class="input @error('items.'.$index.'.duration') border-red-600 @enderror" 
-                            type="number" 
+                            type="date" 
                             name="items[{{$index}}][duration]" 
-                            wire:model="items.{{$index}}.duration">
+                            wire:model.lazy="items.{{$index}}.duration">
                             @error('items.'.$index.'.duration')
                             <span class="text-red-700">{{$message}}</span>
                             @enderror
                         </td>
-                        {{-- <td>
-                            @if (Auth::user()->warehouse->slots->count() > 1)
-                            <label for="item" class="label">Slot</label>
-                            <div class="select">
-                            <select name="items[{{$index}}][item]" 
-                            wire:model="items.{{$index}}.item">
-                                <option value="">-- Slot --</option>
-                                @foreach ($slots as $item)
-                                    <option value="{{$item->id}}">{{$item->name}} </option>
-                                @endforeach
-                            </select>
-                            @error('items.'.$index.'.item')
-                            <span class="text-red-700">{{$message}}</span>
-                            @enderror
-                            </div> 
-                            @else
-                            <label for="">{{Auth::user()->warehouse->slots()->select('id')->first()}}</label>
-                            @endif
-                        </td> --}}
                         <td class="">
                             <div class="flex justify-between mt-7">
                                 <button class="rounded bg-green-400 p-1 px-2" wire:click.prevent="addNewRow">
