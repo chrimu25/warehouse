@@ -30,6 +30,7 @@
     @stack('modals')
     @livewireScripts
     <script src="{{ asset('vendor/livewire-alert/livewire-alert.js') }}"></script> 
+    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <x-livewire-alert::flash />
     <script type="text/javascript" src="{{ asset('js/main.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
