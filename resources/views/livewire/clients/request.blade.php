@@ -1,51 +1,66 @@
-<table>
- <tbody>
-    @foreach([0,1,2] as $index)
-    <tr>
-        <td>
-            <label for="item" class="label">Product</label>
-            <div class="select">
-            <select name="items[{{$index}}][item]" 
-            wire:model.lazy="items.{{$index}}.item">
-                <option value="">-- Product --</option>
-                @foreach ($products as $item)
-                    <option value="{{$item->id}}">{{$item->name}}</option>
-                @endforeach
+<form class=" mx-8 py-3" >
+    <div class='flex justify-between my-3 '>
+        <div class="w-full">
+            <p>Products Category</p>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <option>Creals</option>
+                <option>Vegetables and fruits</option>
+                <option>Metals and Timbers</option>
             </select>
-            @error('items.'.$index.'.item')
-            <span class="text-red-700">{{$message}}</span>
-            @enderror
-            </div>
-        </td>
-        <td>
-            <label for="quantity" class="label">Quantity</label>
-            <input class="input @error('items.'.$index.'.quantity') border-red-600 @enderror" type="number" 
-            name="items[{{$index}}][quantity]" 
-            wire:model.lazy="items.{{$index}}.quantity">
-            @error('items.'.$index.'.quantity')
-            <span class="text-red-700">{{$message}}</span>
-            @enderror
-        </td>
-        <td>
-            <label for="duration" class="label">Duration</label>
-            <input class="input @error('items.'.$index.'.duration') border-red-600 @enderror" 
-            type="date" 
-            name="items[{{$index}}][duration]" 
-            wire:model.lazy="items.{{$index}}.duration">
-            @error('items.'.$index.'.duration')
-            <span class="text-red-700">{{$message}}</span>
-            @enderror
-        </td>
-        <td class="">
-            <div class="flex justify-between mt-7">
-                <button class="rounded bg-green-400 p-1 px-2" wire:click.prevent="addNewRow">
-                    <i class="mdi mdi-plus"></i>
-                </button>
-                <button class="rounded bg-red-400 p-1 px-2" wire:click.prevent="removeRow({{$index}})">
-                    <i class="mdi mdi-minus"></i>
-                </button>
-            </div>
-        </td>
-    </tr>
-    @endforeach</tbody>   
-</table>
+        </div>
+        <div class="w-full ml-3">
+            <p>Favourable loaction</p>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <option>South</option>
+                <option>North</option>
+                <option>East</option>
+                <option>West</option>
+            </select>
+        </div>
+    </div>
+    <div class='my-5'>
+
+      <div class='flex justify-between'>
+        <div class='w-full'>
+            <p>Products Type</p>
+            <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+                <option>Creals</option>
+                <option>Vegetables and fruits</option>
+                <option>Metals and Timbers</option>
+            </select>
+          </div>
+        <div class="mx-3 w-full">
+            <p>Products Quantity</p>
+            <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+        </div>
+        <div class='w-1/2'>
+        <p>Units</p>
+         <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+            <option>Kilograms</option>
+            <option>litters</option>
+            <option>boxes</option>
+        </select>
+        </div>
+      </div>
+    </div>
+    <div class='my-5'>
+        <p>Available warehouses</p>
+        <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" >
+            <option>Rusizi</option>
+            <option>Ngoma</option>
+            <option>Nyanza</option>
+        </select>
+    </div>
+    <div class=' my-5'>
+        <p>Available Slots</p>
+        <select  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+            <option>Creals</option>
+            <option>Vegetables and fruits</option>
+            <option>Metals and Timbers</option>
+        </select>
+    </div>
+    <button class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+        Submit Request
+      </button>
+</form>
+

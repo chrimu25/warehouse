@@ -7,7 +7,7 @@
         </div>
     </section>
     <div class="bg-gray-100">
-        <div class="min-h-screen flex flex-col items-center sm:pt-0">
+        <div class="min-h-screen sm:pt-0 bg-white rounded">
             @livewire('clients.request')
         </div>
     </div>
