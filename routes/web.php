@@ -55,6 +55,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::middleware('role:client')->name('client.')->group(function () {
+        Route::view('all-items', 'client.items')->name('items');
         Route::view('new-request', 'client.new-request')->name('requests.new');
+        Route::view('checkins', 'client.checkins')->name('checkins');
+        Route::view('checkouts', 'client.checkouts')->name('checkouts');
+        Route::view('transfers', 'client.transfer')->name('transfer');
+        Route::view('adjustments', 'client.adjustments')->name('adjustment');
     });
 });

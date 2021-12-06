@@ -4,11 +4,15 @@
           <ul>
             <li>Adjustment</li>
           </ul>
+          <a href="{{ route('admin.warehouses.create') }}" class="button dark">
+            <span class="icon"><i class="mdi mdi-plus"></i></span>
+            <span>Make An Adjustment</span>
+          </a>
         </div>
     </section>
     <div class="bg-gray-100">
         <div class="min-h-screen flex flex-col items-center sm:pt-0">
-            @livewire('clients.request')
+            @livewire('clients.adjustment')
         </div>
     </div>
 </x-app-layout>
