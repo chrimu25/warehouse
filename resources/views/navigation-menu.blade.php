@@ -62,7 +62,7 @@
 
   <aside class="aside is-placed-left is-expanded">
     <div class="aside-tools">
-      <div class="font-bold text-blue-700 text-3xl">
+      <div class="font-bold text-blue-400 text-3xl">
         {{config('app.name')}}
       </div>
     </div>

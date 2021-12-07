@@ -13,6 +13,7 @@ class Activity extends Model
         'product_id',
         'warehouse_id',
         'quantity',
+        'old_quantity',
         'type',
         'status',
     ];

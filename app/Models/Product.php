@@ -9,8 +9,12 @@ class Product extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['item_id','quantity','status','owner_id','category_id','unity_id','warehouse_id','incharge','until'];
+    protected $fillable = [
+        'item_id','quantity','status','owner_id','category_id',
+        'unity_id','warehouse_id','incharge','until'
+    ];
 
+    protected $dates = ['until'];
     /**
      * Get the item that owns the Product
      *
@@ -41,9 +45,9 @@ class Product extends Model
         return $this->belongsTo(Warehouse::class, 'warehouse_id', 'id');
     }
 
-    public function slots()
+    public function slot()
     {
-        return $this->belongsToMany(Slot::class,'product_id','slot_id');
+        return $this->belongsTo(Slot::class);
     }
 
     public function incharge()

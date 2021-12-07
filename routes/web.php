@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\WarehousesController;
+use App\Http\Controllers\Clients\ActivitiesController;
 use App\Http\Controllers\Manager\ItemsController;
 use App\Models\Category;
 use App\Models\Province;
@@ -61,5 +62,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('checkouts', 'client.checkouts')->name('checkouts');
         Route::view('transfers', 'client.transfer')->name('transfer');
         Route::view('adjustments', 'client.adjustments')->name('adjustment');
+
+        Route::get('all-items/checkin/{item}', [ActivitiesController::class,'checkin'])->name('items.checkin');
+        Route::post('all-items/checkin/{item}', [ActivitiesController::class,'insertCheckin'])->name('activity.checkin');
+        Route::get('all-items/checkout/{item}', [ActivitiesController::class,'checkout'])->name('items.checkout');
+        Route::post('all-items/checkout/{item}', [ActivitiesController::class,'insertCheckout'])->name('activity.checkout');
+        Route::get('all-items/transfer/{item}', [ActivitiesController::class,'transfer'])->name('items.transfer');
     });
 });

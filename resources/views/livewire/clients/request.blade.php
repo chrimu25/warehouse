@@ -19,7 +19,6 @@
         </div>
     </div>
     <div class='my-5'>
-
       <div class='flex justify-between'>
         <div class='w-full'>
             <p>Products Type</p>

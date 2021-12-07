@@ -19,6 +19,7 @@ class CreateActivitiesTable extends Migration
             $table->foreignId('product_id')->constrained();
             $table->foreignId('warehouse_id')->constrained();
             $table->integer('quantity')->nullable();
+            $table->integer('old_quantity')->nullable();
             $table->enum('type', ['Checkin', 'Checkout','Adjustment']);
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
             $table->timestamps();

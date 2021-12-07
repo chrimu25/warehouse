@@ -13,7 +13,7 @@
         <link rel="stylesheet" href="{{ asset('https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-
+        @stack('extra-css')
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         @livewireStyles
