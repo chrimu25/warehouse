@@ -53,4 +53,9 @@ class ActivitiesController extends Controller
 
         return redirect()->route('client.items');
     }
+
+    public function transfer(Product $item)
+    {
+        return view('client.single-transfer',compact('item'));
+    }
 }

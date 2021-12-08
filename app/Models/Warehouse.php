@@ -57,6 +57,11 @@ class Warehouse extends Model
     {
         return $this->hasManyThrough(User::class, Product::class,'owner_id');
     }
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class, 'category_warehouse', 'warehouse_id', 'category_id');
+    }
     
     public static function boot()
     {

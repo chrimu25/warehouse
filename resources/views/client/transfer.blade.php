@@ -4,14 +4,10 @@
           <ul>
             <li>Transfer</li>
           </ul>
-          <a href="{{ route('admin.warehouses.create') }}" class="button dark">
-            <span class="icon"><i class="mdi mdi-plus"></i></span>
-            <span>New Transfer</span>
-          </a>
         </div>
     </section>
     <div class="bg-gray-100">
-        <div class="min-h-screen flex flex-col items-center sm:pt-0">
+        <div class="min-h-screen w-full ">
             @livewire('clients.transfer')
         </div>
     </div>

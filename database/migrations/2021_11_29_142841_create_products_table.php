@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->foreignId('category_id')->constrained();
             $table->foreignId('unity_id')->constrained();
             $table->foreignId('warehouse_id')->constrained();
-            $table->foreignId('incharge')->comment('person to make insert')->constrained('users');
+            $table->foreignId('incharge')->nullable()->comment('person to make insert')->constrained('users');
             $table->integer('duration')->comment('duration in days');
             $table->timestamps();
         });

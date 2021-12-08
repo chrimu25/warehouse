@@ -13,10 +13,10 @@ class Slot extends Model
     protected $fillable = [
         'name',
         'size',
-        'remaining',
-        'item_id',
-        'unity_id',
+        'category_id',
         'warehouse_id',
+        'price',
+        'taken',
     ];
 
     public function warehouse()
@@ -24,19 +24,14 @@ class Slot extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
-    public function item()
+    public function category()
     {
-        return $this->belongsTo(Item::class,'item_id','id');
-    }
-
-    public function unity()
-    {
-        return $this->belongsTo(Unity::class,'unity_id','id');
+        return $this->belongsTo(Category::class,'category_id','id');
     }
 
     public function products()
     {
-        return $this->belongsToMany(Product::class);
+        return $this->hasMany(Product::class);
     }
 
     public static function boot()
