@@ -19,8 +19,8 @@
         <meta name="Issa" content="Full stack dev" />
         <title>Stockify | Warehouse Management</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" 
-        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" 
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link
         href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;1,400&display=swap"
@@ -135,6 +135,11 @@
                 <li>
                     <a class="nav-link page-scroll" href="#footer">Contacts</a>
                 </li>
+                <li class="nav-link page-scroll bg-blue-400 rounded">
+                    <a href="/login" class="text-white hover:opacity-75">
+                        Login
+                    </a>
+                    </li>
                 </ul>
             </div>
             </div>
@@ -175,9 +180,7 @@
                         Customers
                     </a>
                     </li>
-                    <li class="my-2">
-                        <a href="/login" class="bg-blue-400 text-white py-2 px-4 rounded">Log-In</a>
-                    </li>
+
                 </ul>
                 </div>
                 <div>

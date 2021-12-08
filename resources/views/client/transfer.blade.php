@@ -7,7 +7,7 @@
         </div>
     </section>
     <div class="bg-gray-100">
-        <div class="min-h-screen w-full ">
+        <div class="min-h-screen px-5">
             @livewire('clients.transfer')
         </div>
     </div>
