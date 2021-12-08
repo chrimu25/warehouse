@@ -11,7 +11,7 @@
         </div>
     </section>
     <div class="bg-gray-100">
-        <div class="min-h-screen flex flex-col items-center sm:pt-0">
+        <div class="min-h-screen px-5">
             @livewire('clients.check-outs')
         </div>
     </div>
