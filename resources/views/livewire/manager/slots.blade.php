@@ -11,42 +11,20 @@
           </a>
         </x-table.header>
         <x-slot name="heading">
-          <x-table.heading class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
-          <x-table.heading>Item</x-table.heading>
-          <x-table.heading>Unity</x-table.heading>
-          <x-table.heading>Size</x-table.heading>
+          <x-table.heading>Category</x-table.heading>
+          <x-table.heading>Price</x-table.heading>
+          <x-table.heading>Size (m2)</x-table.heading>
           <x-table.heading>Options</x-table.heading>
         </x-slot>
         @forelse ($slots as $slot)
         <x-table.row>
-          <x-table.cell class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.cell>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> {{$slot->name}}</x-table.cell>
-          <x-table.cell data-label="Category"> {{$slot->item->name}} </x-table.cell>
-          <x-table.cell data-label="Unity"> {{$slot->unity->name}} </x-table.cell>
-          <x-table.cell data-label="Size">
-            @if ($slot->remaining==0)
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100
-              text-red-800">Full</span>
-            @elseif ($slot->remaining<=3)
-            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100
-            text-yellow-800">Running out: {{$slot->remaining}}</span>
-            @else
-            {{$slot->remaining.__('/').$slot->size}}
-            @endif
-          </x-table.cell>
+          <x-table.cell data-label="Category"> {{$slot->category->name}} </x-table.cell>
+          <x-table.cell data-label="Price"> {{$slot->price}} </x-table.cell>
+          <x-table.cell data-label="Size">{{$slot->size}}</x-table.cell>
           <x-table.cell data-label="Options" class="flex justify-between">
               <button class="bg-red-300 px-2 py-1" wire:loading.attr="loading" wire:click="delete({{$slot->id}})"
                 onclick="confirm('Are you sure about this?') || event.stopImmediatePropagation();">delete</button>
@@ -74,30 +52,24 @@
                       wire:model.defer="size" autocomplete="size" />
                     <x-jet-input-error for="size" class="mt-2" />
                 </div>
+                <div class="py-5 bg-white ">
+                  <x-jet-label for="price" value="{{ __('Price/Day') }}" />
+                  <x-jet-input id="price" type="number" class="mt-1 w-full"
+                    wire:model.defer="price" autocomplete="price" />
+                  <x-jet-input-error for="price" class="mt-2" />
+                </div>
                 <div class="field">
-                <label for="unity" class="label">Unity</label>
+                <label for="unity" class="label">Category</label>
                 <div class="select">
-                    <select name="unity" wire:model="unity">
-                        <option value="">-- Unity --</option>
-                        @foreach ($unities as $item)
+                    <select name="unity" wire:model="category">
+                        <option value="">-- Category --</option>
+                        @forelse ($categories as $item)
                             <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
+                        @empty
+                        <option value="" disabled>No Category Found</option>
+                        @endforelse
                     </select>
                     @error('unity')
-                    <span class="text-red-700">{{$message}}</span>
-                    @enderror
-                </div>
-                </div>
-                <div class="field">
-                <label for="item" class="label">Item</label>
-                <div class="select">
-                    <select name="item" wire:model="item">
-                        <option value="">-- item --</option>
-                        @foreach ($items as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('item')
                     <span class="text-red-700">{{$message}}</span>
                     @enderror
                 </div>
@@ -119,26 +91,18 @@
                       wire:model.defer="size" value="{{$size}}" readonly disabled autocomplete="size" />
                     <x-jet-input-error for="size" />
                 </div>
-                <div class="field">
-                <label for="unity" class="label">Unity</label>
-                <div class="select">
-                    <select name="unity" wire:model="unity">
-                        <option value="">-- Unity --</option>
-                        @foreach ($unities as $item)
-                            <option value="{{$item->id}}">{{$item->name}}</option>
-                        @endforeach
-                    </select>
-                    @error('unity')
-                    <span class="text-red-700">{{$message}}</span>
-                    @enderror
-                </div>
+                <div class="py-5 bg-white ">
+                  <x-jet-label for="price" value="{{ __('Price/Day') }}" />
+                  <x-jet-input id="price" type="number" class="mt-1 w-full"
+                    wire:model.defer="price" autocomplete="price" />
+                  <x-jet-input-error for="price" class="mt-2" />
                 </div>
                 <div class="field">
                 <label for="item" class="label">Item</label>
                 <div class="select">
-                    <select name="item" wire:model="item">
-                        <option value="">-- item --</option>
-                        @foreach ($items as $item)
+                    <select name="category" wire:model="category">
+                        <option value="">-- category --</option>
+                        @foreach ($categories as $item)
                             <option value="{{$item->id}}" >{{$item->name}}</option>
                         @endforeach
                     </select>

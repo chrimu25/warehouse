@@ -3,16 +3,13 @@
         <x-table.header>
             <p class="card-header-title">
                 <span class="icon"><i class="mdi mdi-label"></i></span>
-                Our Contacts
+                My Requests
             </p>
-            <a href="#" class="card-header-icon">
+            <div href="#" class="card-header-icon">
               Search/perpage/export
-            </a>
+            </div>
         </x-table.header>
         <x-slot name="heading">
-            <x-table.heading>
-                <input type="checkbox" wire:model="select_all" id="">
-            </x-table.heading>
             <x-table.heading>#</x-table.heading>
             <x-table.heading>Item</x-table.heading>
             <x-table.heading>Quantity</x-table.heading>
@@ -23,7 +20,6 @@
         </x-slot>
         @forelse ($items as $item)
         <x-table.row>
-            <x-table.cell> <input type="checkbox" wire:model="select_single" id=""></x-table.cell>
             <x-table.cell data-label="#">{{$loop->iteration}}</x-table.cell>
             <x-table.cell data-label="Item">
                 <div class="flex items-center sm:flex-column sm:items-start">
@@ -38,7 +34,7 @@
             </x-table.cell>
             <x-table.cell data-label="Quantity">
                 {{$item->quantity}} 
-                {{-- {{$item->unity->name}} --}}
+                {{$item->unity->name}}
             </x-table.cell>
             <x-table.cell data-label="Warehouse">
                 <div class="flex items-center sm:flex-column sm:items-start">
@@ -84,7 +80,7 @@
                           Transfer
                         </a>
                     </div>
-                  </div>
+                </div>
             </x-table.cell>
         </x-table.row>
         @empty

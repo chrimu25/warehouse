@@ -139,11 +139,17 @@
 
         @if (Auth::user()->role == 'Manager')
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.requests') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Requests</span>
             </a>
         </li>
+        <li class="--set-active-tables-html">
+          <a href="{{ route('manager.store') }}">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Store</span>
+          </a>
+      </li>
         <li class="--set-active-tables-html">
             <a href="{{ route('manager.slots') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
@@ -157,21 +163,21 @@
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.checkins') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Checkins</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.checkouts') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Checkout</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{ route('manager.transfers') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Adjustiment</span>
+              <span class="menu-item-label">Transfers</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
@@ -196,12 +202,6 @@
           </a>
         </li>
         <li class="--set-active-tables-html">
-          <a href="tables.html">
-            <span class="icon"><i class="mdi mdi-table"></i></span>
-            <span class="menu-item-label">History</span>
-          </a>
-        </li>
-        <li class="--set-active-tables-html">
           <a href="{{ route('client.checkins') }}">
             <span class="icon"><i class="mdi mdi-table"></i></span>
             <span class="menu-item-label">CheckIns</span>
@@ -217,12 +217,6 @@
             <a href="{{ route('client.transfer') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Transfers</span>
-            </a>
-        </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('client.adjustment') }}">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Adjustiments</span>
             </a>
         </li>
         @endif

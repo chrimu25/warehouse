@@ -15,7 +15,7 @@ class Slots extends Component
 {
     use LivewireAlert;
     public $newName, $search = '', $perPage = 5;
-    public $size, $unity, $item;
+    public $size, $price, $category;
     public $selected_id, $open = false;
     use WithPagination;
     public $queryString = [
@@ -27,8 +27,8 @@ class Slots extends Component
     {
         $this->validateOnly($fields,[
             'size'=>'required|integer|min:1',
-            'unity'=>'required',
-            'item'=>'required'
+            'category'=>'required',
+            'price'=>'integer|required'
         ]);
     }
 
@@ -36,35 +36,29 @@ class Slots extends Component
     {
         $this->validate([
             'size'=>'required|integer|min:1',
-            'unity'=>'required',
-            'item'=>'required',
+            'category'=>'required',
+            'price'=>'integer|required'
         ]);
-        $item = Item::find($this->item)->first();
         $wh = Warehouse::findOrFail(Auth::user()->warehouse->id);
-        if ($wh->type=="Single" && $wh->item_id!=$this->item) {
-            $this->alert('error', 'Your warehouse has no ability to store '.$item->name, [
+        if ($wh->slots()->count() >= $wh->num_of_slots) {
+            $this->alert('error', 'Your Have Limited Number of Slots!, '.$wh->num_of_slots.' Reached', [
                 'position' => 'center',
                 'timer' => 4000,
                 'toast' => true,
             ]);
-        } else if(($wh->type=="Single" && $wh->item_id == $this->item) || 
-        (Auth::user()->warehouse->type=="Multiple")){
-            if ($wh->slots()->count() >= $wh->num_of_slots) {
-                $this->alert('error', 'Your Have Limited Number of Slots!, '.$wh->num_of_slots.' Reached', [
-                    'position' => 'center',
-                    'timer' => 4000,
-                    'toast' => true,
-                ]);
-                return;
-            }
-            Slot::create([
-                'size'=>$this->size,
-                'remaining'=>$this->size,
-                'item_id'=>$this->item,
-                'unity_id'=>$this->unity,
-                'warehouse_id'=>Auth::user()->warehouse->id,
-            ]);
+            return;
         }
+        Slot::create([
+            'size'=>$this->size,
+            'price'=>$this->price,
+            'category_id'=>$this->category,
+            'warehouse_id'=>Auth::user()->warehouse->id,
+        ]);
+        $this->alert('success', 'Slot inserted Successfully!', [
+            'position' => 'center',
+            'timer' => 4000,
+            'toast' => true,
+        ]);
         $this->reset();
     }
 
@@ -73,40 +67,38 @@ class Slots extends Component
         $slot = Slot::findOrFail($id);
         $this->newName = $slot->name;
         $this->size = $slot->size;
-        $this->item = $slot->item_id;
-        $this->unity = $slot->unity_id;
+        $this->price = $slot->price;
+        $this->category = $slot->category_id;
         $this->selected_id = $slot->id;
         $this->open = true;
     }
 
     public function update($id)
     {
-        $item = Item::find($this->item)->first();
-        $wh = Warehouse::findOrFail(Auth::user()->warehouse->id);
-        // dd($wh->id);
-        if ($wh->type=="Single" && $wh->item_id!=$this->item) {
-            $this->alert('error', 'Your warehouse has no ability to store '.$item->name, [
-                'position' => 'center',
-                'timer' => 4000,
-                'toast' => true,
-            ]);
-        } else if(($wh->type=="Single" && $wh->item_id == $this->item) || 
-        (Auth::user()->warehouse->type=="Multiple")){
         $slot = Slot::findOrFail($id);
-        $this->validate(['size'=>'required|integer|min:1']);
-        $slot->item_id = $this->item;
-        $slot->unity_id = $this->unity;
+
+        $this->validate([
+            'size'=>'required|integer|min:1',
+            'price'=>'required|integer|min:1'
+        ]);
+
+        $slot->category_id = $this->category;
+        $slot->price = $this->price;
+        $slot->size = $this->size;
         $slot->save();
         $this->reset();
         $this->open = false;
-        }
     }
 
     public function delete($id)
     {
         $slot = Slot::findOrFail($id);
-        if ($slot->product) {
-            $this->emit('alert',['type'=>'warning','message'=>'Can\'t Delete Slot! Poduct Attached']);
+        if($slot->products){
+            $this->alert('error', 'This slot contains some products!', [
+                'position' => 'center',
+                'timer' => 4000,
+                'toast' => true,
+            ]);
             return;
         }
         $slot->delete();
@@ -114,13 +106,12 @@ class Slots extends Component
 
     public function render()
     {
-        $unities = Unity::select('name','id')->orderBy('name')->get();
-        $items = Item::select('name','id')->orderBy('name')->get();
+        $categories = Auth::user()->warehouse->categories;
 
-        $slots = Slot::with('warehouse','item','unity')
+        $slots = Slot::with('warehouse','category')
         ->where('name','like','%'.trim($this->search).'%')
         ->orderBy('name')->simplePaginate($this->perPage);
     
-        return view('livewire.manager.slots', compact('slots','unities','items'));
+        return view('livewire.manager.slots', compact('slots','categories'));
     }
 }
