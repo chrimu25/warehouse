@@ -58,6 +58,7 @@ class Request extends Component
         if (!is_null($this->warehouse) && !empty($this->category)) {
             $this->slots = Slot::where('warehouse_id',$this->warehouse)
                             ->where('category_id',$this->category)
+                            ->where('taken',0)
                             ->select('name','id','size','price')
                             ->get();
         }

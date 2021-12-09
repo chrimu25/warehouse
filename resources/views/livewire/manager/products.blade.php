@@ -11,25 +11,13 @@
           </a>
         </x-table.header>
         <x-slot name="heading">
-          <x-table.heading class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
-          <x-table.heading>Records</x-table.heading>
+          <x-table.heading>Requests</x-table.heading>
           <x-table.heading>Options</x-table.heading>
         </x-slot>
         @forelse ($products as $product)
         <x-table.row>
-          <x-table.cell class="checkbox-cell"> 
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.cell>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> 
             <a href="{{ route('manager.items.show',$product->id) }}">{{$product->name}}</a>

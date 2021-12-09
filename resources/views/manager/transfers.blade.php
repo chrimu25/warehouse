@@ -1,18 +1,16 @@
-<x-app-layout title="CheckOuts">
+<x-app-layout title="Transfers">
     <section class="is-title-bar">
         <div class="flex flex-col md:flex-row items-center justify-between space-y-1 md:space-y-0">
           <ul>
-            <li>All Request</li>
+            <li>{{Auth::user()->role}}</li>
+            <li>Requests</li>
+            <li>Transfers</li>
           </ul>
-          <a href="{{ route('client.requests.new') }}" class="button dark">
-            <span class="icon"><i class="mdi mdi-plus"></i></span>
-            <span>New Checkout</span>
-          </a>
         </div>
     </section>
     <div class="bg-gray-100">
         <div class="min-h-screen px-5">
-            @livewire('clients.items')
+            @livewire('manager.transfers')
         </div>
     </div>
 </x-app-layout>

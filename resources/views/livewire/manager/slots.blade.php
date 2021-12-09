@@ -11,27 +11,15 @@
           </a>
         </x-table.header>
         <x-slot name="heading">
-          <x-table.heading class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
           <x-table.heading>Category</x-table.heading>
           <x-table.heading>Price</x-table.heading>
-          <x-table.heading>Size</x-table.heading>
+          <x-table.heading>Size (m2)</x-table.heading>
           <x-table.heading>Options</x-table.heading>
         </x-slot>
         @forelse ($slots as $slot)
         <x-table.row>
-          <x-table.cell class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.cell>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> {{$slot->name}}</x-table.cell>
           <x-table.cell data-label="Category"> {{$slot->category->name}} </x-table.cell>

@@ -105,7 +105,7 @@
                 </div>
                 <div class=" w-full">
                     <p>Until</p>
-                    <input type="date" class="shadow appearance-none border rounded w-full py-2 px-3 
+                    <input type="date" min="{{date('Y-m-d')}}" class="shadow appearance-none border rounded w-full py-2 px-3 
                     text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                     wire:model="enddate">
                     <x-jet-input-error for="enddate" class="mt-2" />
@@ -115,7 +115,7 @@
                 <p>Quantity</p>
                 <input type="number" class="shadow appearance-none border rounded w-full py-2 px-3 
                 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
-                wire:model.lazy="quantity">
+                wire:model.lazy="quantity" max="{{$oldQuantity}}">
                 <input type="hidden" name="oldQuantity" readonly  wire:model.lazy="oldQuantity">
                 <x-jet-input-error for="quantity" class="mt-2" />
             </div>

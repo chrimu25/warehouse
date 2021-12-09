@@ -9,7 +9,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Items extends Component
+class Store extends Component
 {
     use WithPagination;
     use LivewireAlert;
@@ -26,17 +26,12 @@ class Items extends Component
         session()->flash('success','Product Deleted Successfully!');
     }
 
-    public function mount($item)
-    {
-        $this->item = $item;
-    }
-
     public function moveOut($id)
     {
         $product = Product::findOrFail($id);
         $product->update(['out'=>1]);
         $slot = Slot::findOrFail($product->slot->id)->update(['taken'=>0]);
-        $this->alert('success', 'product Moved Successfully!', [
+        $this->alert('success', 'Slot Released Successfully!', [
             'position' => 'center',
             'timer' => 4000,
             'toast' => true,
@@ -47,9 +42,8 @@ class Items extends Component
     public function render()
     {
         $items = Product::with('owner','category','unity','incharge','item')
-                        ->where('item_id',$this->item->id)
+                        ->where('status','Approved')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
-                        ->where('status','!=','Denied')
                         ->where('out',0)
                         ->when($this->searchKey, function($query){
                             $query->whereHas('owner', function($query2){
@@ -60,6 +54,6 @@ class Items extends Component
                         })
                         ->orderByDesc('created_at')
                         ->paginate($this->perPage);
-        return view('livewire.manager.items', compact('items'));
+        return view('livewire.manager.store', compact('items'));
     }
 }

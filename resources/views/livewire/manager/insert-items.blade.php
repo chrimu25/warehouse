@@ -114,9 +114,7 @@
                                 <option value="">Unity</option> 
                                 @foreach ($unities as $item)
                                     <option value="{{$item->id}}">
-                                        {{$item->name}},  
-                                        {{$item->size}},
-                                        {{$item->price}} Rwf/Day,
+                                        {{$item->name}}
                                     </option>
                                 @endforeach
                             </select>

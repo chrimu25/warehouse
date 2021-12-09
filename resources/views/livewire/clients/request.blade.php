@@ -100,7 +100,7 @@
             </div>
             <div class="w-1/3">
                 <p>Keep Until</p>
-                <input type="date" class="shadow appearance-none border rounded w-full 
+                <input type="date" min="{{date('Y-m-d')}}" class="shadow appearance-none border rounded w-full 
                 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" 
                 wire:model.lazy="until">
                 <x-jet-input-error for="until" class="mt-2" />

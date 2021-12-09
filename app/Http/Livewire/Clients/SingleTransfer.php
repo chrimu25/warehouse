@@ -43,6 +43,7 @@ class SingleTransfer extends Component
         if (!is_null($warehouse)) {
             $this->slots = Slot::where('warehouse_id',$warehouse)
             ->where('category_id',$this->category)
+            ->where('taken',0)
             ->select('name','id')->get();
         }
     }

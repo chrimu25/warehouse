@@ -89,7 +89,7 @@
                         <option value="Approved">Approved</option>
                         <option value="Denied">Denied</option>
                   </select>
-              </div>
+                </div>
               </div>
           </x-table.header>
           <x-slot name="heading">

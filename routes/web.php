@@ -49,6 +49,11 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {
       Route::get('products/items/{item}', [ItemsController::class,'show'])->name('items.show'); 
       Route::view('slots', 'manager.slots')->name('slots'); 
+      Route::view('store', 'manager.storage')->name('store'); 
+      Route::view('incoming-requests', 'manager.requests')->name('requests'); 
+      Route::view('checkins', 'manager.checkins')->name('checkins'); 
+      Route::view('checkouts', 'manager.checkouts')->name('checkouts'); 
+      Route::view('transfers', 'manager.transfers')->name('transfers'); 
       Route::view('products', 'manager.products')->name('products'); 
       Route::get('items/insert', [ItemsController::class,'create'])->name('products.insert'); 
       Route::post('items/insert', [ItemsController::class,'store'])->name('products.store'); 
