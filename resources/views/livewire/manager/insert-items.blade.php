@@ -85,8 +85,8 @@
                                 @foreach ($slots as $item)
                                     <option value="{{$item->id}}">
                                         {{$item->name}},  
-                                        {{$item->unity->name}}, 
-                                        {{$item->remaining}}
+                                        {{$item->size}},
+                                        {{$item->price}} Rwf/Day,
                                     </option>
                                 @endforeach
                             </select>
@@ -105,6 +105,25 @@
                             @enderror
                             <input type="hidden" value="{{$quantity1}}" name="items[{{$index}}][maxQuantity]" 
                             wire:model.lazy="items.{{$index}}.maxQuantity">
+                        </td>
+                        <td>
+                            <label class="label">Unity</label>
+                            <div class="select">
+                            <select name="items[{{$index}}][unity]"  
+                            wire:model.lazy="items.{{$index}}.unity">
+                                <option value="">Unity</option> 
+                                @foreach ($unities as $item)
+                                    <option value="{{$item->id}}">
+                                        {{$item->name}},  
+                                        {{$item->size}},
+                                        {{$item->price}} Rwf/Day,
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('items.'.$index.'.unity')
+                            <span class="text-red-700">{{$message}}</span>
+                            @enderror
+                            </div>
                         </td>
                         <td>
                             <label for="duration" class="label">Duration</label>

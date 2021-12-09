@@ -196,12 +196,6 @@
           </a>
         </li>
         <li class="--set-active-tables-html">
-          <a href="tables.html">
-            <span class="icon"><i class="mdi mdi-table"></i></span>
-            <span class="menu-item-label">History</span>
-          </a>
-        </li>
-        <li class="--set-active-tables-html">
           <a href="{{ route('client.checkins') }}">
             <span class="icon"><i class="mdi mdi-table"></i></span>
             <span class="menu-item-label">CheckIns</span>
@@ -217,12 +211,6 @@
             <a href="{{ route('client.transfer') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Transfers</span>
-            </a>
-        </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('client.adjustment') }}">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Adjustiments</span>
             </a>
         </li>
         @endif

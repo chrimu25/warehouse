@@ -4,10 +4,6 @@
           <ul>
             <li>CheckIns</li>
           </ul>
-          <a href="{{ route('admin.warehouses.create') }}" class="button dark">
-            <span class="icon"><i class="mdi mdi-plus"></i></span>
-            <span>New Checkin</span>
-          </a>
         </div>
     </section>
     <div class="bg-gray-100">

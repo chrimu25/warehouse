@@ -17,4 +17,19 @@ class Activity extends Model
         'type',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

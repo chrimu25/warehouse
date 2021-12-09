@@ -30,13 +30,19 @@ class Request extends Component
 
     public function mount()
     {
-        $this->products = Item::select('name','id')->orderBy('name')->get();
         $this->unities = Unity::select('name','id')->orderBy('name')->get();
         $this->categories = Category::select('name','id')->orderBy('name')->get();
         $this->districts = District::whereHas('warehouse')->select('districts.name','districts.id')
                                 ->orderBy('districts.name')->get();
         $this->warehouses = null;
         $this->slots = null;
+    }
+
+    public function updatedCategory($category)
+    {
+        if (!is_null($category)) {
+            $this->products = Item::where('category_id',$category)->select('name','id')->orderBy('name')->get();;
+        }
     }
 
     public function updatedDistrict($district)

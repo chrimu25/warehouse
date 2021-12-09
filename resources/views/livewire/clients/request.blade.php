@@ -5,6 +5,7 @@
             <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
             leading-tight focus:outline-none focus:shadow-outline" name="category" wire:model.lazy="category">
                 <option value="" selected>-- Select Category --</option>
+
                 @forelse ($categories as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
                 @empty
@@ -18,11 +19,13 @@
             <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
             leading-tight focus:outline-none focus:shadow-outline" name="item" wire:model.lazy="item">
                 <option value="" selected>-- Select Item --</option>
+                @if($category)
                 @forelse ($products as $item)
                 <option value="{{$item->id}}">{{$item->name}}</option>
                 @empty
                 <option value="" disabled>---- No Items Found ----</option>
                 @endforelse
+                @endif
             </select>
             <x-jet-input-error for="item" class="mt-2" />
           </div>
