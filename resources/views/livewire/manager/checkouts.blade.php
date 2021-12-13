@@ -105,18 +105,18 @@
             <x-table.row>
                 <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
                 <x-table.cell data-label="Item">
-                    <div class="text-sm text-gray-900">{{$item->product->item->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->product->item?$item->product->item->name:''}}</div>
                     <div class="flex items-center sm:flex-column sm:items-start">
                         <div class="text-sm text-gray-500">
-                            <span class="text-bold">{{$item->quantity}}{{$item->product->unity->name}}</span>
+                            <span class="text-bold">{{$item->quantity}}{{$item->product->unity?$item->product->unity->name:''}}</span>
                         </div>
                       </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->user->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->user?$item->user->name:''}}</div>
                     <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->user->phone}}" class="mr-2">{{$item->user->phone}}</a>
-                    <a href="mailto:{{$item->user->email}}">{{$item->user->email}}</a></div>
+                        <a href="tel:{{$item->user?$item->user->phone:''}}" class="mr-2">{{$item->user?$item->user->phone:''}}</a>
+                    <a href="mailto:{{$item->user?$item->user->email:''}}">{{$item->user?$item->user->email:''}}</a></div>
                 </x-table.cell>
                 <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}}
                 </span>
