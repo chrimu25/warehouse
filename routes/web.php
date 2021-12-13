@@ -4,7 +4,6 @@ use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\Clients\ActivitiesController;
-use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Manager\ItemsController;
 use App\Models\Category;
 use App\Models\Province;
@@ -16,8 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])
-->get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware('role:admin')->prefix('manager')->name('admin.')->group(function () {
@@ -27,12 +27,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('warehouses', 'admin.warehouses')->name('warehouses');
         Route::get('warehouse/insert', function(){
             $categories = Category::select('name','id')->orderBy('name')->get();
-            $provinces = Province::orderBy('name')->get();
-            $districts = District::orderBy('name')->get();
-            $sectors = Sector::orderBy('name')->get();
-            $cells = Cell::orderBy('name')->get();
-            return view('admin.create-edit-warehouse',compact('categories','provinces','districts',
-            'sectors','cells'));
+            
+            return view('admin.create-edit-warehouse',compact('categories'));
         })->name('warehouses.create');
         Route::post('warehouse/store', [WarehousesController::class, 'store'])->name('warehouses.store');
         Route::get('warehouse/{wh}/edit', [WarehousesController::class, 'edit'])->name('warehouses.edit');

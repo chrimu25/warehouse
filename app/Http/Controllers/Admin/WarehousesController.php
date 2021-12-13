@@ -50,13 +50,14 @@ class WarehousesController extends Controller
             'district_id'=>$request->district, 
             'sector_id'=>$request->sector, 
             'cell_id'=>$request->cell,
-            'item_id'=>$request->filled('category')?$request->category:NULL,
             'owner'=>$request->owner,
             'user_id'=>$user->id,
             'fork_lifter'=>$request->fork_lifter,
             'num_of_slots'=>$request->slots,
             'picture'=>$image
         ]);
+
+        $warehouse->categories()->attach($request->category);
 
 
         return back()->with('success','Warehouse Inserted Successfully!');

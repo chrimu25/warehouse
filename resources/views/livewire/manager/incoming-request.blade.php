@@ -90,18 +90,18 @@
             <x-table.row>
                 <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
                 <x-table.cell data-label="Item">
-                    <div class="text-sm text-gray-900">{{$item->item->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->item?$item->item->name:''}}</div>
                     <div class="flex items-center sm:flex-column sm:items-start">
                         <div class="text-sm text-gray-500">
-                            <span class="text-bold">{{$item->quantity}}{{$item->unity->name}}</span>
+                            <span class="text-bold">{{$item->quantity}}{{$item->unity?$item->unity->name:''}}</span>
                         </div>
                       </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->owner->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->owner?$item->owner->name:''}}</div>
                     <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
-                    <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                        <a href="tel:{{$item->owner?$item->owner->phone:''}}" class="mr-2">{{$item->owner?$item->owner->phone:''}}</a>
+                    <a href="mailto:{{$item->owner?$item->owner->email:''}}">{{$item->owner?$item->owner->email:''}}</a></div>
                 </x-table.cell>
                 <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} -
                     <span @if (\Carbon\Carbon::now()->gte($item->until)) class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full

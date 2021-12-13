@@ -93,12 +93,12 @@
               <span class="menu-item-label">Transfer</span>
             </a>
         </li>
-        <li class="--set-active-tables-html">
+        {{-- <li class="--set-active-tables-html">
           <a href="{{route('admin.invoices')}}">
             <span class="icon"><i class="mdi mdi-table"></i></span>
             <span class="menu-item-label">Invoices</span>
           </a>
-        </li>
+        </li> --}}
         <li class="--set-active-tables-html">
           <a href="{{route('admin.store')}}">
             <span class="icon"><i class="mdi mdi-table"></i></span>

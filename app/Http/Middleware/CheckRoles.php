@@ -17,7 +17,7 @@ class CheckRoles
      */
     public function handle(Request $request, Closure $next, String $role)
     {
-        if($role == 'admin' && Auth::user()->role == 'Admin'){
+        if($role == 'admin' && Auth::user()->role != 'Admin'){
             abort(403);
         }
         else if($role == 'manager' && Auth::user()->role != 'Manager'){

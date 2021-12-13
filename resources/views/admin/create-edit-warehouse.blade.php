@@ -46,9 +46,9 @@
                     <div class="my-2 md:flex justfy-between">
                     <div class="px-6 bg-white w-full sm:py-2">
                         <x-jet-label for="category" value="{{ __('Product Category') }}" />
-                        <select id="category" name="category"  class="mt-1 block w-full sm:text-sm
+                        <select id="category" name="category[]" multiple class="mt-1 block w-full sm:text-sm
                         py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none">
-                          <option value="">Select Product Category</option>
+                          <option disabled>Select Product Category</option>
                           @foreach ($categories as $item)
                             <option value="{{$item->id}}" {{old('category')==$item->id?'selected':''}}
                               @isset($wh){{$wh->category_id==$item->id?'selected':''}}@endisset>
@@ -94,55 +94,7 @@
                     </div>
                     </div>
                     @if (!isset($wh))
-                    <div class=" md:flex justify-between bg-white">
-                    <div class="px-6 w-full sm:py-2">
-                        <x-jet-label for="province" value="{{ __('Province') }}" />
-                        <select id="province" name="province" class="mt-1 block w-full sm:text-sm
-                        py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none">
-                          <option>Select Province</option>
-                          @foreach ($provinces as $item)
-                            <option value="{{$item->id}}" {{old('province')==$item->id?'selected':''}}
-                              >{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        <x-jet-input-error for="province" class="mt-2" />
-                    </div>
-                    <div class="px-6 w-full sm:py-2">
-                        <x-jet-label for="district" value="{{ __('District') }}" />
-                        <select id="district" name="district" class="mt-1 block w-full sm:text-sm
-                        py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none">
-                          <option>Select District</option>
-                          @foreach ($districts as $item)
-                            <option value="{{$item->id}}" {{old('district')==$item->id?'selected':''}}
-                              >{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        <x-jet-input-error for="district" class="mt-2" />
-                    </div>
-                    <div class="px-6 w-full sm:py-2">
-                        <x-jet-label for="sector" value="{{ __('Sector') }}" />
-                        <select id="sector" name="sector" class="mt-1 block w-full sm:text-sm
-                        py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none">
-                          <option>Select Sector</option>
-                          @foreach ($sectors as $item)
-                            <option value="{{$item->id}}" {{old('sector')==$item->id?'selected':''}}
-                              >{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        <x-jet-input-error for="sector" class="mt-2" />
-                    </div>
-                    <div class="px-6 w-full sm:py-2">
-                        <x-jet-label for="cell" value="{{ __('Cell') }}" />
-                        <select id="cell" name="cell" class="mt-1 block w-full sm:text-sm
-                        py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none">
-                          <option>Select Cell</option>
-                          @foreach ($cells as $item)
-                            <option value="{{$item->id}}" {{old('cell')==$item->id?'selected':''}}>{{$item->name}}</option>
-                          @endforeach
-                        </select>
-                        <x-jet-input-error for="cell" class="mt-2" />
-                    </div>
-                  </div>
+                    @livewire('admin.locations')
                     @endif
                     <div class="px-6 py-2 bg-white space-y-2 sm:py-2">
                         <div class="flex text-sm text-gray-600">

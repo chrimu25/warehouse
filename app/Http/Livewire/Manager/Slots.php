@@ -109,6 +109,7 @@ class Slots extends Component
         $categories = Auth::user()->warehouse->categories;
 
         $slots = Slot::with('warehouse','category')
+        ->where('warehouse_id',Auth::user()->warehouse->id)
         ->where('name','like','%'.trim($this->search).'%')
         ->orderBy('name')->simplePaginate($this->perPage);
     

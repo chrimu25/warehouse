@@ -36,7 +36,7 @@
         <x-table.row>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> {{$slot->name}}</x-table.cell>
-          <x-table.cell data-label="Category"> {{$slot->category->name}} </x-table.cell>
+          <x-table.cell data-label="Category"> {{$slot->category?$slot->category->name:''}} </x-table.cell>
           <x-table.cell data-label="Price"> {{$slot->price}} </x-table.cell>
           <x-table.cell data-label="Size">{{$slot->size}}</x-table.cell>
           <x-table.cell data-label="Options" class="flex justify-between">

@@ -19,7 +19,7 @@ class Items extends Component
     ];
     public function render()
     {
-        $items = Product::with('warehouse','slot','item','unity','incharge')->where('owner_id',Auth::id())
+        $items = Product::with('warehouse','slot','item','unity','incharge1')->where('owner_id',Auth::id())
                         ->where('until','>=',date('Y-m-d'))
                         ->paginate($this->perPage);
         return view('livewire.clients.items', compact('items'));
