@@ -166,7 +166,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        LaravelDaily\Invoices\InvoiceServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,6 +233,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
+        'Invoice' => LaravelDaily\Invoices\Facades\Invoice::class,
 
     ],
 

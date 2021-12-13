@@ -7,6 +7,7 @@ use App\Models\Slot;
 use App\Models\User;
 use App\Notifications\RequestApprovedNotification;
 use App\Notifications\RequestRejectedNotification;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -33,7 +34,10 @@ class IncomingRequest extends Component
     public function Deny($id)
     {
         $product = Product::findOrFail($id);
-        $product->update(['status'=>'Denied']);
+        $product->update([
+            'status'=>'Denied',
+            'incharge'=>Auth::id()
+        ]);
         $user = User::findOrFail($product->owner->id);
         $user->notify(new RequestRejectedNotification($product));
         $this->alert('success', 'Storage Request Rejected Successfully!', [
@@ -47,7 +51,11 @@ class IncomingRequest extends Component
     public function Approve($id)
     {
         $product = Product::findOrFail($id);
-        $product->update(['status'=>'Approved']);
+        $product->update([
+            'status'=>'Approved',
+            'incharge'=>Auth::id(),
+            'created_at'=>Carbon::now(),
+        ]);
         $slot = Slot::findOrFail($product->slot->id)->update(['taken'=>1]);
         $user = User::findOrFail($product->owner->id);
         $user->notify(new RequestApprovedNotification($product));

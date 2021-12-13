@@ -20,11 +20,12 @@ class Transfer extends Model
         'quantity',
         'incharge',
         'status',
+        'approved',
     ];
 
     protected $dates = ['until'];
 
-    public function owner()
+    public function owner1()
     {
         return $this->belongsTo(User::class, 'owner', 'id');
     }

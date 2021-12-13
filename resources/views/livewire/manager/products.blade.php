@@ -6,9 +6,6 @@
             <span class="icon"><i class="mdi mdi-label"></i></span>
             Products
           </p>
-          <a href="#" class="card-header-icon">
-            <span class="icon"><i class="mdi mdi-reload"></i></span>
-          </a>
         </x-table.header>
         <x-slot name="heading">
           <x-table.heading>#</x-table.heading>

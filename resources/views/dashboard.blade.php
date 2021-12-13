@@ -68,11 +68,17 @@
                     <div></div>
                   </div>
                 </div>
-                <canvas id="big-line-chart" width="2992" height="1000" class="chartjs-render-monitor block" style="height: 400px; width: 1197px;"></canvas>
+                <canvas>
+                  <h1>{{ $chart1->options['chart_title'] }}</h1>
+                    {!! $chart1->renderHtml() !!}
+                </canvas>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+@push('script')
+{!! $chart1->renderChartJsLibrary() !!}
+{!! $chart1->renderJs() !!}  
+@endpush
 </x-app-layout>

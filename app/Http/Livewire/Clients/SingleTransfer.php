@@ -6,7 +6,9 @@ use App\Models\Category;
 use App\Models\District;
 use App\Models\Slot;
 use App\Models\Transfer;
+use App\Models\User;
 use App\Models\Warehouse;
+use App\Notifications\TransferRequestNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -71,7 +73,7 @@ class SingleTransfer extends Component
             'enddate'=>'bail|required|after_or_equal:startingDate',
         ]);
         
-        Transfer::create([
+        $transfer = Transfer::create([
             'from'=>$this->oldWarehouse,
             'to'=>$this->warehouse,
             'slot_id'=>$this->slot,
@@ -82,6 +84,9 @@ class SingleTransfer extends Component
             'until'=>$this->enddate,
             'quantity'=>$this->quantity,
         ]);
+
+        $user = User::findOrFail($transfer->fromWarehouse->manager->id);
+        $user->notify(new TransferRequestNotification($transfer));
         $this->reset();
         $this->alert('success', 'Transfer Submitted Successfully!', [
             'position' => 'top-end',

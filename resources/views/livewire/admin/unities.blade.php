@@ -11,24 +11,12 @@
           </a>
         </x-table.header>
         <x-slot name="heading">
-          <x-table.heading>
-            <div class="flex items-center">
-              <input id="offers" name="offers" type="checkbox" 
-              class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-            </div>
-          </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
           <x-table.heading>Options</x-table.heading>
         </x-slot>
         @forelse ($unities as $unity)
           <x-table.row>
-            <x-table.cell> 
-              <div class="flex items-center">
-                <input id="offers" name="offers" type="checkbox" 
-                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-              </div>
-            </x-table.cell>
             <x-table.cell> {{$loop->iteration}}</x-table.cell>
             <x-table.cell> {{$unity->name}}</x-table.cell>
             <x-table.cell class="flex justify-between"> 

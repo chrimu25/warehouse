@@ -76,35 +76,41 @@
         </li>
         @if (Auth::user()->role == 'Admin')
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{route('admin.checkins')}}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Checkins</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{route('admin.checkouts')}}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Checkouts</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="tables.html">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Adjustment</span>
-            </a>
-        </li>
-        <li class="--set-active-tables-html">
-            <a href="tables.html">
+            <a href="{{route('admin.transfers')}}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Transfer</span>
             </a>
         </li>
         <li class="--set-active-tables-html">
-            <a href="#!">
+          <a href="{{route('admin.invoices')}}">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Invoices</span>
+          </a>
+        </li>
+        <li class="--set-active-tables-html">
+          <a href="{{route('admin.store')}}">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Store</span>
+          </a>
+        </li>
+        {{-- <li class="--set-active-tables-html">
+            <a href="{{route('admin.items')}}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
               <span class="menu-item-label">Items</span>
             </a>
-        </li>
+        </li> --}}
         <li class="--set-active-tables-html">
             <a href="{{ route('admin.warehouses') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
@@ -177,9 +183,15 @@
         <li class="--set-active-tables-html">
             <a href="{{ route('manager.transfers') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Transfers</span>
+              <span class="menu-item-label">Incoming Transfers</span>
             </a>
         </li>
+        <li class="--set-active-tables-html">
+          <a href="{{ route('manager.outgoings') }}">
+            <span class="icon"><i class="mdi mdi-table"></i></span>
+            <span class="menu-item-label">Outgoing Transfers</span>
+          </a>
+      </li>
         <li class="--set-active-tables-html">
             <a href="{{ route('manager.clients') }}">
               <span class="icon"><i class="mdi mdi-table"></i></span>

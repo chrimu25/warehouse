@@ -107,18 +107,18 @@
               <x-table.cell data-label="#">{{$loop->iteration}}</x-table.cell>
               <x-table.cell data-label="Item">{{$item->product->item->name}}</x-table.cell>
               <x-table.cell data-label="Category">
-                {{$item->fromWarehouse->name}}
+                {{$item->fromWarehouse?$item->fromWarehouse->name:''}}
                 <div class="text-gray-500">
-                  <div class="my-1">Slot: <span>{{$item->product->slot->name}}</span></div> 
+                  <div class="my-1">Slot: <span>{{$item->product->slot?$item->product->slot->name:''}}</span></div> 
                   <div>Days: <span>{{ \Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->diffInDays( \Carbon\Carbon::createFromFormat('Y-m-d', $item->product->created_at->format('Y-m-d')))}}</span></div> 
                 </div>
               </x-table.cell>
-              <x-table.cell data-label="Warehouse">{{$item->toWarehouse->name}}
+              <x-table.cell data-label="Warehouse">{{$item->toWarehouse?$item->toWarehouse->name:''}}
                 <div class="text-gray-500">
-                  <div class="my-1">Slot: <span>{{$item->slot->name}}</span></div>  
+                  <div class="my-1">Slot: <span>{{$item->slot?$item->slot->name:''}}</span></div>  
                 </div>
               </x-table.cell>
-              <x-table.cell data-label="Quantity">{{$item->quantity.__(' ').$item->unity->name}}</x-table.cell>
+              <x-table.cell data-label="Quantity">{{$item->quantity.__(' ').$item->unity?$item->unity->name:''}}</x-table.cell>
               <x-table.cell data-label="Date">{{$item->until->format('Y-m-d')}}</x-table.cell>
               <x-table.cell data-label="Status">
                   <span class="inline-flex items-center justify-center 

@@ -61,7 +61,8 @@ class Categories extends Component
 
     public function render()
     {
-        $categories = Category::where('name','like','%'.trim($this->search).'%')
+        $categories = Category::withCount('products','warehouse')
+                                ->where('name','like','%'.trim($this->search).'%')
                                 ->orderBy('name')->simplePaginate($this->perPage);
         return view('livewire.admin.categories',compact('categories'));
     }

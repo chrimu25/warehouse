@@ -11,12 +11,6 @@
           </a>
         </x-table.header>
         <x-slot name="heading">
-          <x-table.heading class="checkbox-cell">
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.heading>
           <x-table.heading>#</x-table.heading>
           <x-table.heading>Name</x-table.heading>
           <x-table.heading>Warehouses</x-table.heading>
@@ -25,16 +19,10 @@
         </x-slot>
         @forelse ($categories as $category)
         <x-table.row>
-          <x-table.cell class="checkbox-cell"> 
-            <label class="checkbox">
-              <input type="checkbox">
-              <span class="check"></span>
-            </label>
-          </x-table.cell>
           <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
           <x-table.cell data-label="Name"> {{$category->name}}</x-table.cell>
-          <x-table.cell data-label="Warehouses"> (66) </x-table.cell>
-          <x-table.cell data-label="Products"> (523) </x-table.cell>
+          <x-table.cell data-label="Warehouses">{{$category->warehouse_count}}</x-table.cell>
+          <x-table.cell data-label="Products"> {{$category->products_count}}</x-table.cell>
           <x-table.cell data-label="Options" class="flex justify-between"> 
               <button class="bg-red-300 px-2 py-1" wire:loading.attr="loading" wire:click="delete({{$category->id}})" 
                 onclick="confirm('Are you sure about this?') || event.stopImmediatePropagation();">delete</button> 

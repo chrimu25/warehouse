@@ -13,7 +13,7 @@ class Item extends Model
 
     public function stockin()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class)->where('status','!=','Denied');
     }
 
     public function category()

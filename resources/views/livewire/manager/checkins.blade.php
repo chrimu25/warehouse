@@ -8,7 +8,7 @@
                   All Requests
                 </h3>
                 <h1>
-                  {{-- {{$all}} --}}
+                  {{$all}}
                 </h1>
               </div>
               <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -23,7 +23,7 @@
                     Pending
                   </h3>
                   <h1>
-                    {{-- {{$pending}} --}}
+                    {{$pending}}
                   </h1>
                 </div>
                 <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -38,7 +38,7 @@
                   Approved
                 </h3>
                 <h1>
-                  {{-- {{$denied}} --}}
+                  {{$approved}}
                 </h1>
               </div>
               <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -53,7 +53,7 @@
                   Denied
                 </h3>
                 <h1>
-                  {{-- {{$denied}} --}}
+                  {{$denied}}
                 </h1>
               </div>
               <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -61,7 +61,7 @@
           </div>
         </div>
     </div>
-    {{-- <div class="min-w-full px-2 rounded shadow-md">
+    <div class="min-w-full px-2 rounded shadow-md">
         <x-table>
             <x-table.header>
                 <p class="card-header-title">
@@ -105,40 +105,37 @@
             <x-table.row>
                 <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
                 <x-table.cell data-label="Item">
-                    <div class="text-sm text-gray-900">{{$item->item->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->product->item->name}}</div>
                     <div class="flex items-center sm:flex-column sm:items-start">
                         <div class="text-sm text-gray-500">
-                            <span class="text-bold">{{$item->quantity}}{{$item->unity->name}}</span>
+                            <span class="text-bold">{{$item->quantity}}{{$item->product->unity->name}}</span>
                         </div>
                       </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->owner->name}}</div>
+                    <div class="text-sm text-gray-900">{{$item->user->name}}</div>
                     <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
-                    <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                        <a href="tel:{{$item->user->phone}}" class="mr-2">{{$item->user->phone}}</a>
+                    <a href="mailto:{{$item->user->email}}">{{$item->user->email}}</a></div>
                 </x-table.cell>
-                <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} -
-                    <span @if (\Carbon\Carbon::now()->gte($item->until)) class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                    bg-yellow-100 text-yellow-800"@endif> 
-                    {{$item->until->format('Y-d-m')}} 
+                <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}}
                 </span>
                 </x-table.cell>
                 <x-table.cell data-label="Status">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                     bg-green-100 text-green-800">
+                     @if($item->status=="Approved") 
+                     bg-green-100 text-green-800 @elseif($item->status=="Pending") 
+                     bg-yellow-100 text-yellow-800 
+                     @else bg-red-100 text-red-800 @endif">
                         {{$item->status}}
                       </span>
                 </x-table.cell>
                 <x-table.cell data-label="Options" class="flex justify-between"> 
-                    @if ($item->status=="Denied")
-                    <button class="block px-4 py-1 w-full text-sm capitalize text-gray-700 bg-red-300
+                    @if ($item->status=="Pending")
+                    <button class="block px-4 mr-1 py-1 w-full text-sm capitalize text-gray-700 bg-red-300
                       rounded hover:bg-red-200 hover:text-white" wire:click="delete({{$item->id}})" 
-                      wire:loading.attr="disabled">
-                      <span wire:loading.remove>Delete</span>
-                      <span wire:loading wire:target="invoice">Processing</span>
-                  </button>
-                    @else
+                      wire:loading.attr="disabled">Delete
+                    </button>
                     <button class="block mr-1 px-4 py-1 w-full text-sm capitalize text-gray-700 bg-green-300
                         rounded hover:bg-green-200 hover:text-white" wire:click="Approve({{$item->id}})" 
                         wire:loading.attr="disabled">
@@ -161,5 +158,5 @@
         <x-table.pagination>
         {{$items->links()}}
         </x-table.pagination>  
-    </div> --}}
+    </div>
 </div>
