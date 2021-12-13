@@ -34,15 +34,15 @@
             </x-table.cell>
             <x-table.cell data-label="Quantity">
                 {{$item->quantity}} 
-                {{$item->unity->name}}
+                {{$item->unity?$item->unity->name:''}}
             </x-table.cell>
             <x-table.cell data-label="Warehouse">
                 <div class="flex items-center sm:flex-column sm:items-start">
                     <div class="ml-4">
-                        <span>{{$item->warehouse->name}}</span>
+                        <span>{{$item->warehouse?$item->warehouse->name:''}}</span>
                         <div class="text-gray-500">
-                            <div class="my-1">Province:<span>{{$item->warehouse->province->name}}</span></div> 
-                            <div>District:<span>{{$item->warehouse->district->name}}</span></div> 
+                            <div class="my-1">Province:<span>{{$item->warehouse->province?$item->warehouse->province->name:''}}</span></div> 
+                            <div>District:<span>{{$item->warehouse->district?$item->warehouse->district->name:''}}</span></div> 
                         </div>
                     </div>
                 </div>
@@ -51,10 +51,10 @@
                 {{$item->slot->name}}
             </x-table.cell>
             <x-table.cell data-label="Manager">
-                <div class="text-sm text-gray-900">{{$item->warehouse->manager->name}}</div>
+                <div class="text-sm text-gray-900">{{$item->warehouse->manager?$item->warehouse->manager->name:''}}</div>
                 <div class="text-gray-500">
-                    <div class="my-1">Phone: <a href="tel:+{{$item->warehouse->manager->phone}}">{{$item->warehouse->manager->phone}}</a></div> 
-                    <div>Email: <a href="mailto:{{$item->warehouse->manager->email}}">{{$item->warehouse->manager->email}}</a></div> 
+                    <div class="my-1">Phone: <a href="tel:+{{$item->warehouse->manager?$item->warehouse->manager->phone:''}}">{{$item->warehouse->manager?$item->warehouse->manager->phone:''}}</a></div> 
+                    <div>Email: <a href="mailto:{{$item->warehouse->manager?$item->warehouse->manager->email:''}}">{{$item->warehouse->manager?$item->warehouse->manager->email:''}}</a></div> 
                  </div>
             </x-table.cell>
             <x-table.cell data-label="Actions" class="flex justify-between"> 

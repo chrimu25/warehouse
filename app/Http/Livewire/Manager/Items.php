@@ -34,7 +34,7 @@ class Items extends Component
     public function moveOut($id)
     {
         $product = Product::findOrFail($id);
-        $product->update(['out'=>1]);
+        $product->update(['out'=>1, 'incharge'=>Auth::id()]);
         $slot = Slot::findOrFail($product->slot->id)->update(['taken'=>0]);
         $this->alert('success', 'product Moved Successfully!', [
             'position' => 'center',

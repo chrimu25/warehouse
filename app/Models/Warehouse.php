@@ -53,11 +53,6 @@ class Warehouse extends Model
         return $this->hasMany(Slot::class);
     }
 
-    public function clients()
-    {
-        return $this->hasManyThrough(User::class, Product::class,'owner_id');
-    }
-
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_warehouse', 'warehouse_id', 'category_id');

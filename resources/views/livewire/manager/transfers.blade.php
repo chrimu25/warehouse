@@ -8,7 +8,7 @@
                   All Transfers
                 </h3>
                 <h1>
-                  {{-- {{$all}} --}}
+                  {{$all}}
                 </h1>
               </div>
               <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -23,7 +23,7 @@
                     Pending
                   </h3>
                   <h1>
-                    {{-- {{$pending}} --}}
+                    {{$pending}}
                   </h1>
                 </div>
                 <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
@@ -38,7 +38,7 @@
                   Approved
                 </h3>
                 <h1>
-                  {{-- {{$denied}} --}}
+                  {{$denied}}
                 </h1>
               </div>
               <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -53,7 +53,7 @@
                   Denied
                 </h3>
                 <h1>
-                  {{-- {{$denied}} --}}
+                  {{$denied}}
                 </h1>
               </div>
               <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
@@ -66,7 +66,7 @@
             <x-table.header>
                 <p class="card-header-title">
                     <span class="icon"><i class="mdi mdi-label"></i></span>
-                    Store ({{$items->count()}})
+                    Store ({{$transfers->count()}})
                 </p>
                 <div href="#" class="card-header-icon">
                   <label for="Search" class="label">Search</label>
@@ -95,63 +95,58 @@
             </x-table.header>
             <x-slot name="heading">
                 <x-table.heading>#</x-table.heading>
-                <x-table.heading>Warehouse</x-table.heading>
+                <x-table.heading>Item</x-table.heading>
                 <x-table.heading>Owner</x-table.heading>
-                <x-table.heading>Date</x-table.heading>
+                <x-table.heading>From</x-table.heading>
+                <x-table.heading>To</x-table.heading>
                 <x-table.heading>Status</x-table.heading>
-                <x-table.heading>Options</x-table.heading>
             </x-slot>
-            @forelse ($items as $item)
+            @forelse ($transfers as $item)
             <x-table.row>
                 <x-table.cell data-label="#"> {{$loop->iteration}}</x-table.cell>
                 <x-table.cell data-label="Item">
-                    <div class="text-sm text-gray-900">{{$item->item->name}}</div>
-                    <div class="flex items-center sm:flex-column sm:items-start">
-                        <div class="text-sm text-gray-500">
-                            <span class="text-bold">{{$item->quantity}}{{$item->unity->name}}</span>
+                  <div class="flex items-center sm:flex-column sm:items-start">
+                    <div class="ml-4">
+                        <span>{{$item->product()->exists()?$item->product->item->name:''}}</span>
+                        <div class="text-gray-500">
+                            <div class="my-1">Quantity:<span class="ml-1">{{$item->quantity}}{{$item->unity()->exists()?$item->unity->name:''}}</span></div> 
                         </div>
-                      </div>
+                    </div>
+                  </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->owner->name}}</div>
-                    <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
-                    <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                  <div class="flex items-center sm:flex-column sm:items-start">
+                    <div class="ml-4">
+                        <span>{{$item->owner1?$item->owner1->name:''}}</span>
+                        <div class="text-gray-500">
+                            <div class="my-1">phone:<span><a href="tel:{{$item->owner1?$item->owner1->phone:''}}" class="mr-2">{{$item->owner1?$item->owner1->phone:''}}</a></span></div> 
+                            <div>Email:<span><a href="mailto:{{$item->owner1?$item->owner1->email:''}}">{{$item->owner1?$item->owner1->email:''}}</a></span></div> 
+                        </div>
+                    </div>
+                  </div>
                 </x-table.cell>
-                <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} -
-                    <span @if (\Carbon\Carbon::now()->gte($item->until)) class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                    bg-yellow-100 text-yellow-800"@endif> 
-                    {{$item->until->format('Y-d-m')}} 
-                </span>
+                <x-table.cell data-label="From">
+                  <div class="flex items-center sm:flex-column sm:items-start">
+                    <div class="ml-4">
+                        <span>{{$item->fromWarehouse?$item->fromWarehouse->name:''}}</span>
+                        <div class="text-gray-500">
+                            <div class="my-1">Province:<span>{{$item->fromWarehouse?$item->fromWarehouse->province->name:''}}</span></div> 
+                            <div>District:<span>{{$item->fromWarehouse?$item->fromWarehouse->district->name:''}}</span></div> 
+                        </div>
+                    </div>
+                  </div>
+                </x-table.cell>
+                <x-table.cell data-label="To">
+                  {{$item->slot->exists()?$item->slot->name:''}}
                 </x-table.cell>
                 <x-table.cell data-label="Status">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
-                     bg-green-100 text-green-800">
-                        {{$item->status}}
-                      </span>
-                </x-table.cell>
-                <x-table.cell data-label="Options" class="flex justify-between"> 
-                    @if ($item->status=="Denied")
-                    <button class="block px-4 py-1 w-full text-sm capitalize text-gray-700 bg-red-300
-                      rounded hover:bg-red-200 hover:text-white" wire:click="delete({{$item->id}})" 
-                      wire:loading.attr="disabled">
-                      <span wire:loading.remove>Delete</span>
-                      <span wire:loading wire:target="invoice">Processing</span>
-                  </button>
-                    @else
-                    <button class="block mr-1 px-4 py-1 w-full text-sm capitalize text-gray-700 bg-green-300
-                        rounded hover:bg-green-200 hover:text-white" wire:click="Approve({{$item->id}})" 
-                        wire:loading.attr="disabled">
-                        <span wire:loading.remove>Approve</span>
-                        <span wire:loading wire:target="invoice">Processing</span>
-                    </button>
-                    <button class="block px-4 py-1 w-full text-sm capitalize text-gray-700 bg-yellow-300
-                        rounded hover:bg-yellow-200 hover:text-white" wire:click="Deny({{$item->id}})" 
-                        wire:loading.attr="disabled">
-                        <span wire:loading.remove>Deny</span>
-                        <span wire:loading wire:target="invoice">Processing</span>
-                    </button>
-                    @endif
+                  <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
+                  @if($item->status=="Approved") 
+                  bg-green-100 text-green-800 @elseif($item->status=="Pending") 
+                  bg-yellow-100 text-yellow-800 
+                  @else bg-red-100 text-red-800 @endif">
+                     {{$item->status}}
+                  </span>
                 </x-table.cell>
             </x-table.row>
             @empty
@@ -159,7 +154,7 @@
             @endforelse
         </x-table>
         <x-table.pagination>
-        {{$items->links()}}
+        {{$transfers->links()}}
         </x-table.pagination>  
     </div>
 </div>

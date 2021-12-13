@@ -105,9 +105,9 @@
           @forelse ($checkouts as $item)
           <x-table.row>
               <x-table.cell data-label="#">{{$loop->iteration}}</x-table.cell>
-              <x-table.cell data-label="Item">{{$item->product->item->name}}</x-table.cell>
-              <x-table.cell data-label="Category">{{$item->product->category->name}}</x-table.cell>
-              <x-table.cell data-label="Warehouse">{{$item->warehouse->name}}</x-table.cell>
+              <x-table.cell data-label="Item">{{$item->product?$item->product->item->name:''}}</x-table.cell>
+              <x-table.cell data-label="Category">{{$item->product?$item->product->category->name:""}}</x-table.cell>
+              <x-table.cell data-label="Warehouse">{{$item->warehouse?$item->warehouse->name:''}}</x-table.cell>
               <x-table.cell data-label="Quantity">{{$item->quantity}}</x-table.cell>
               <x-table.cell data-label="Date"> {{$item->created_at->format('Y-m-d')}} </x-table.cell>
               <x-table.cell data-label="Status">

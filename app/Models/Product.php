@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $fillable = [
         'item_id','quantity','status','owner_id','category_id','slot_id',
-        'unity_id','warehouse_id','incharge','until','out'
+        'unity_id','warehouse_id','incharge','until','transfer','out'
     ];
 
     protected $dates = ['until'];
@@ -50,7 +50,7 @@ class Product extends Model
         return $this->belongsTo(Slot::class);
     }
 
-    public function incharge()
+    public function incharge1()
     {
         return $this->belongsTo(User::class, 'incharge', 'id');
     }

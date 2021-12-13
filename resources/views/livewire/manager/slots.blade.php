@@ -6,9 +6,23 @@
             <span class="icon"><i class="mdi mdi-label"></i></span>
             Slots
           </p>
-          <a href="#" class="card-header-icon">
-            {{-- <span class="icon"><i class="mdi mdi-reload"></i></span> --}}
-          </a>
+          <div class="card-header-icon">
+            <div class="field">
+              <label for="">Search</label>
+              <input type="search" wire:model.debounce.500="search" placeholder="Search..." id="">
+            </div>
+            <div class="flex field">
+              <label for="" class="mr-2">Per Page</label>
+              <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
+                leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
+                  <option value="">Per Page</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="25">25</option>
+                  <option value="50">50</option>
+              </select>
+            </div>
+          </div>
         </x-table.header>
         <x-slot name="heading">
           <x-table.heading>#</x-table.heading>

@@ -25,7 +25,7 @@ class RequestRejectedNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database','mail'];
     }
 
     /**
@@ -53,9 +53,8 @@ class RequestRejectedNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            'name'=>$this->product->name,
-            'message'=>'Your Request of 
-            '.$this->product->created_at.' at '.$this->product->warehouse->code.' Warehouse Denied!',
+            'name'=>'Storage Space Request',
+            'message'=>'Your Request of '.$this->product->quantity.$this->product->unity->name.' of '.$this->product->item->name.' at '.$this->product->created_at.' at Warehouse Denied!',
         ];
     }
 }

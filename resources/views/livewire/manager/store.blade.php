@@ -58,32 +58,18 @@
                     {{$item->status}}
                   </span>
             </x-table.cell>
-            <x-table.cell data-label="Options" class="flex justify-between"> 
-                <div x-data="{ dropdownOpen: false }" class="relative">
-                    <button @click="dropdownOpen = !dropdownOpen" class="relative z-10 block rounded-md 
-                    bg-white p-2 flex justify-between focus:outline-none bg-gray-800 text-white">
-                      Options <i class="mdi mdi-chevron-down"></i>
-                    </button>
-                  
-                    <div x-show="dropdownOpen" @click="dropdownOpen = false" class="fixed inset-0 h-full w-full z-10"></div>
-                  
-                    <div x-show="dropdownOpen" class="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-xl z-20">
-                        <button class="block px-4 py-2 w-full text-sm capitalize text-gray-700 
-                            hover:bg-blue-500 hover:text-white" wire:click="invoice({{$item->id}})" 
-                            wire:loading.attr="disabled">
-                            <span wire:loading.remove>Invoice</span>
-                            <span wire:loading wire:target="invoice">Processing</span>
-                        </button>
-                      @if (\Carbon\Carbon::now()->gte($item->until))  
-                        <button class="block px-4 py-2 w-full text-sm capitalize text-gray-700 
-                            hover:bg-blue-500 hover:text-white" wire:click="moveOut({{$item->id}})" 
-                            wire:loading.attr="disabled">
-                            <span wire:loading.remove>Move Out</span>
-                            <span wire:loading wire:target="moveOut">Processing</span>
-                        </button>
-                        @endif
-                    </div>
-                </div>
+            <x-table.cell data-label="Options" class="flex justify-between">
+                @if (\Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->diffInDays(\Carbon\Carbon::createFromFormat('Y-m-d', $item->created_at->format('Y-m-d'))) >= 3)
+                    
+                <button class="block px-4 mr-1 py-2 rounded w-full text-sm capitalize  
+                    bg-gray-200 hover:bg-gray-100 text-gray-900" wire:click="invoice({{$item->id}})" 
+                    wire:loading.attr="disabled">Invoice
+                </button>  
+                <button class="block px-4 py-2 rounded w-full text-sm capitalize  
+                    bg-blue-200 text-blue-900 hover:bg-blue-100" wire:click="moveOut({{$item->id}})" 
+                    wire:loading.attr="disabled">Move Out
+                </button>
+                @endif 
             </x-table.cell>
         </x-table.row>
         @empty

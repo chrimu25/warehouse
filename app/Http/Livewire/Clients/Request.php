@@ -8,7 +8,9 @@ use App\Models\Item;
 use App\Models\Product;
 use App\Models\Slot;
 use App\Models\Unity;
+use App\Models\User;
 use App\Models\Warehouse;
+use App\Notifications\ClientRequestNotification;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -66,7 +68,7 @@ class Request extends Component
     
     public function insert()
     {
-        Product::create([
+        $product = Product::create([
             'item_id'=>$this->item,
             'quantity'=>$this->quantity,
             'status'=>'Pending',
@@ -77,6 +79,10 @@ class Request extends Component
             'warehouse_id'=>$this->warehouse,
             'until'=>$this->until,
         ]);
+
+        $user = User::findOrFail($product->warehouse->manager->id);
+
+        $user->notify(new ClientRequestNotification($product));
 
         $this->alert('success', 'Request Submitted Successfully!', [
             'position' => 'top-end',

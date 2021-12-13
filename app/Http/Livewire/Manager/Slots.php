@@ -93,7 +93,7 @@ class Slots extends Component
     public function delete($id)
     {
         $slot = Slot::findOrFail($id);
-        if($slot->products){
+        if($slot->products->count()>0){
             $this->alert('error', 'This slot contains some products!', [
                 'position' => 'center',
                 'timer' => 4000,

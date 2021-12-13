@@ -36,7 +36,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/chart.sample.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('js/chart.sample.js') }}"></script>
     
     <script>
         !function(f,b,e,v,n,t,s)
@@ -49,10 +49,12 @@
           'https://connect.facebook.net/en_US/fbevents.js');
         fbq('init', '658339141622648');
         fbq('track', 'PageView');
+
+        
     </script>
+    @stack('script')
     <link rel="stylesheet" 
     href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css">
 </html>
-@stack('script')
 
 
