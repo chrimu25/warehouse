@@ -1,19 +1,23 @@
 <div class="min-w-full px-2 rounded shadow-md">
 <x-table>
     <x-table.header>
-        <p class="card-header-title">
-            <span class="icon"><i class="mdi mdi-label"></i></span>
-            Warehouses
-        </p>
-        <select class="block  border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-state">
-          <option>4</option>
-          <option>6</option>
-          <option>8</option>
-          <option>10</option>
-        </select>
-        <a href="#" class="card-header-icon">
-          Search/perpage/export
-        </a>
+      <div href="#" class="card-header-icon">
+        <div class="flex items-center">
+          <label for="Search" class="label mx-2">Search</label>
+          <input class="input" type="search" placeholder="Search..." 
+          wire:model="searchKey">
+        </div>
+       <div class="flex items-center">
+          <label for="" class="mx-2 w-full ">Per Page</label>
+          <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
+          leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
+              <option value="">Per Page</option>
+              <option value="10">10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+          </select>
+      </div>
+      </div>
     </x-table.header>
     <x-slot name="heading">
         <x-table.heading>#</x-table.heading>

@@ -53,6 +53,21 @@ class Warehouse extends Model
         return $this->hasMany(Slot::class);
     }
 
+    public function fullSlots()
+    {
+        return $this->hasMany(Slot::class)->whereHas('products');
+    }
+
+    public function EmptySlots()
+    {
+        return $this->hasMany(Slot::class)->whereDoesntHave('products');
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class)->where('confirmed',1);
+    }
+
     public function categories()
     {
         return $this->belongsToMany(Category::class, 'category_warehouse', 'warehouse_id', 'category_id');

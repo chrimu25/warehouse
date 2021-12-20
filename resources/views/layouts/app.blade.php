@@ -35,8 +35,7 @@
     <script type="text/javascript" src="{{ asset('js/main.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <x-livewire-alert::scripts />
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
-    <script type="text/javascript" src="{{ asset('js/chart.sample.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
     <script>
         !function(f,b,e,v,n,t,s)

@@ -10,11 +10,27 @@ class Invoice extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
+        'warehouse_id',
         'product_id',
         'days',
         'total_price',
         'confirmed',
     ];
+
+    public function owner()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
 
     public static function boot()
     {

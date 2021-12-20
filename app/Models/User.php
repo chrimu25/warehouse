@@ -112,4 +112,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Slot::class, Warehouse::class);
     }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
+    }
 }

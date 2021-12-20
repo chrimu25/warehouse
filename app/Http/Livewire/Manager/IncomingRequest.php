@@ -69,7 +69,7 @@ class IncomingRequest extends Component
 
     public function render()
     {
-        $items = Product::with('owner','category','unity','incharge','item')
+        $items = Product::with('owner','category','unity','incharge1','item')
                         ->where('status', '!=','Approved')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->where('out',0)

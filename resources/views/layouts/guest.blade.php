@@ -104,34 +104,7 @@
                 <li>
                     <a class="nav-link page-scroll" href="#warehouses">Warehouses</a>
                 </li>
-                <li class="dropdown">
-                    <a
-                    class="nav-link dropdown-toggle"
-                    href="#"
-                    id="dropdown01"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    >Categories</a
-                    >
-                    <div class="dropdown-menu" aria-labelledby="dropdown01">
-                    <a class="dropdown-item page-scroll" href="#"
-                        >Creals, Vegetables and Fruits</a
-                    >
-
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item page-scroll" href="#"
-                        >Timber and metals</a
-                    >
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item page-scroll" href="#"
-                        >Chemicals and Electronics</a
-                    >
-                    </div>
-                </li>
-                <li>
-                    <a class="nav-link page-scroll" href="about.html">About</a>
-                </li>
+            
                 <li>
                     <a class="nav-link page-scroll" href="#footer">Contacts</a>
                 </li>
@@ -148,7 +121,7 @@
             {{ $slot }}
         </div>
         <footer class="bg-gray-800 text-white" id="footer">
-            <div class="md:flex justify-between max-w-6xl mx-auto py-4">
+            <div class="md:flex justify-between md:text-left text-center max-w-6xl mx-auto py-4">
                 <div>
                 <h2 class="font-semibold text-xl text-blue-400 mb-4">CONTACTS</h2>
                 <ul>

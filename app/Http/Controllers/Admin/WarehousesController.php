@@ -39,6 +39,10 @@ class WarehousesController extends Controller
             'phone'=>$request->mphone,
             'role'=>'Manager',
             'nid'=>null,
+            'province_id'=>$request->province, 
+            'district_id'=>$request->district, 
+            'sector_id'=>$request->sector, 
+            'cell_id'=>$request->cell,
         ]);
 
         $warehouse = Warehouse::create([

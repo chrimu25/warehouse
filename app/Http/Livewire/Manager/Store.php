@@ -2,11 +2,15 @@
 
 namespace App\Http\Livewire\Manager;
 
+use App\Mail\InvoiceMail;
 use App\Models\Invoice as InvoiceModel;
 use App\Models\Product;
 use App\Models\Slot;
+use App\Models\User;
+use App\Notifications\NewInvoiceNotification;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -35,45 +39,22 @@ class Store extends Component
     {
         $product = Product::findOrFail($id);
         $days = Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->diffInDays(Carbon::createFromFormat('Y-m-d', $product->created_at->format('Y-m-d')));
-        
-        $customer = new Party([
-            'name'          => $product->owner->name,
-            'custom_fields' => [
-                'Phone number' => $product->owner->phone,
-                'E-mail Address' => $product->owner->email,
-                'Province' => $product->owner->province?$product->owner->province->name:'',
-                'District' => $product->owner->district?$product->owner->district->name:'',
-                'Sector' => $product->owner->sector?$product->owner->sector->name:'',
-                'Cell' => $product->owner->cell?$product->owner->cell->name:'',
-            ],
-        ]);
-
-        $item = (new InvoiceItem())
-        ->title($product->warehouse->code.' Warehouse, '.$product->slot->name.' Invoice')
-        ->pricePerUnit($product->slot->price)
-        ->quantity($days);
-
-        $invoice = Invoice::make()
-            ->buyer($customer)
-            ->date(now()->subWeeks(3))
-            ->dateFormat('Y-m-d')
-            ->payUntilDays(10)
-            ->currencyCode('RWF')
-            ->currencyFormat('{SYMBOL}{VALUE}')
-            ->currencyThousandsSeparator('.')
-            ->currencyDecimalPoint(',')
-            ->filename($customer->name.time())
-            ->addItem($item)
-            ->save('public');
-
-        $link = $invoice->url();
-            dd($link);
-        InvoiceModel::create([
+        $user = User::findOrFail($product->owner_id);
+        $invoice = InvoiceModel::create([
+            'warehouse_id'=>Auth::user()->warehouse->id,
             'user_id'=>$product->owner_id,
             'product_id'=>$product->id,
             'days'=>$days,
             'total_price'=>$product->slot->price * $days,
         ]);
+        $this->alert('success', 'Invoice Sent Successfully!', [
+            'position' => 'center',
+            'timer' => 4000,
+            'toast' => true,
+            'width' => '700',
+        ]);
+        $user->notify(new NewInvoiceNotification($invoice));
+        Mail::queue(new InvoiceMail($invoice));
     }
 
     public function moveOut($id)
@@ -91,7 +72,7 @@ class Store extends Component
 
     public function render()
     {
-        $items = Product::with('owner','category','unity','incharge','item')
+        $items = Product::with('owner','category','unity','slot','item')
                         ->where('status','Approved')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->where('out',0)

@@ -1,6 +1,6 @@
 <div>
-    <div class="grid gap-3 grid-cols-2 md:grid-cols-3 mb-6">
-        <div class="card">
+    <div class="md:flex justify-between mb-6">
+        <div class="card w-full mx-1">
           <div class="card-content">
             <div class="flex items-center justify-between">
               <div class="widget-label">
@@ -15,7 +15,7 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card w-full mx-1">
             <div class="card-content">
               <div class="flex items-center justify-between">
                 <div class="widget-label">
@@ -30,7 +30,7 @@
               </div>
             </div>
           </div>
-        <div class="card">
+        <div class="card w-full mx-1">
           <div class="card-content">
             <div class="flex items-center justify-between">
               <div class="widget-label">
@@ -45,7 +45,7 @@
             </div>
           </div>
         </div>
-        <div class="card">
+        <div class="card w-full mx-1">
           <div class="card-content">
             <div class="flex items-center justify-between">
               <div class="widget-label">
@@ -69,11 +69,13 @@
                     Store ({{$items->count()}})
                 </p>
                 <div href="#" class="card-header-icon">
-                  <label for="Search" class="label">Search</label>
+                  <div class="flex items-center">
+                  <label for="Search" class="label mx-2">Search</label>
                   <input class="input" type="search" placeholder="Search..." 
                   wire:model="searchKey">
-                  <div class="flex">
-                    <label for="" class="mr-2">Per Page</label>
+                  </div>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2 w-full">Per Page</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
                         <option value="">Per Page</option>
@@ -82,8 +84,8 @@
                         <option value="50">50</option>
                     </select>
                   </div>
-                  <div class="flex">
-                    <label for="" class="mr-2">Status</label>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2">Status</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="status">
                         <option value="">Default</option>
