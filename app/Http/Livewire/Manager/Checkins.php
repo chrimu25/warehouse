@@ -25,18 +25,13 @@ class Checkins extends Component
 
     public function delete($id)
     {
-        $item = Product::findOrfail($id);
-        $item->delete();
-        session()->flash('success','Product Deleted Successfully!');
+        DeleteCheckin($id);
+        session()->flash('success','Checkin Request Deleted Successfully!');
     }
 
     public function Deny($id)
     {
-        $activity = Activity::findOrFail($id);
-        $activity->update(['status'=>'Rejected']);
-        
-        $user = User::findOrFail($activity->user_id);
-        $user->notify(new CheckinDeniedNotification($activity));
+        DenyCheckin($id);
         $this->alert('success', 'Checkin Request Rejected Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,
@@ -47,15 +42,8 @@ class Checkins extends Component
     
     public function Approve($id)
     {
-        $activity = Activity::findOrFail($id);
-        $activity->update(['status'=>'Approved']);
-        $product = Product::findOrFail($activity->product_id);
-        $product->update([
-            'quantity'=>$product->quantity + $activity->quantity,
-        ]);
+        ApproveCheckin($id);
         
-        $user = User::findOrFail($activity->user_id);
-        $user->notify(new CheckinApprovedNotification($activity));
         $this->alert('success', 'Checkin Request Approved Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,

@@ -1,66 +1,66 @@
 <div>
-    <div class="grid gap-3 grid-cols-2 md:grid-cols-3 mb-6">
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  All Transfers
-                </h3>
-                <h1>
-                  {{$all}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-            </div>
+  <div class="md:flex justify-between mb-6">
+    <div class="card w-full mx-1">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              All Outgoing Transfers
+            </h3>
+            <h1>
+              {{$all}}
+            </h1>
           </div>
+          <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
         </div>
-        <div class="card">
-            <div class="card-content">
-              <div class="flex items-center justify-between">
-                <div class="widget-label">
-                  <h3>
-                    Pending
-                  </h3>
-                  <h1>
-                    {{$pending}}
-                  </h1>
-                </div>
-                <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-              </div>
-            </div>
-          </div>
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Approved
-                </h3>
-                <h1>
-                  {{$denied}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Denied
-                </h3>
-                <h1>
-                  {{$denied}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-            </div>
-          </div>
-        </div>
+      </div>
     </div>
+    <div class="card w-full mx-1">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Pending
+              </h3>
+              <h1>
+                {{$pending}}
+              </h1>
+            </div>
+            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+    <div class="card w-full mx-1">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              Approved
+            </h3>
+            <h1>
+              {{$approved}}
+            </h1>
+          </div>
+          <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+        </div>
+      </div>
+    </div>
+    <div class="card w-full mx-1">
+      <div class="card-content">
+        <div class="flex items-center justify-between">
+          <div class="widget-label">
+            <h3>
+              Denied
+            </h3>
+            <h1>
+              {{$denied}}
+            </h1>
+          </div>
+          <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
     <div class="min-w-full px-2 rounded shadow-md">
         <x-table>
             <x-table.header>
@@ -69,11 +69,13 @@
                     Store ({{$transfers->count()}})
                 </p>
                 <div href="#" class="card-header-icon">
-                  <label for="Search" class="label">Search</label>
+                  <div class="flex items-center">
+                  <label for="Search" class="label mx-2">Search</label>
                   <input class="input" type="search" placeholder="Search..." 
                   wire:model="searchKey">
-                  <div class="flex">
-                    <label for="" class="mr-2">Per Page</label>
+                  </div>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2 w-full">Per Page</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
                         <option value="">Per Page</option>
@@ -82,8 +84,8 @@
                         <option value="50">50</option>
                     </select>
                   </div>
-                  <div class="flex">
-                    <label for="" class="mr-2">Status</label>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2">Status</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="status">
                         <option value="">Default</option>
@@ -116,15 +118,21 @@
                   </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
+                  @if ($item->owner1)
                   <div class="flex items-center sm:flex-column sm:items-start">
                     <div class="ml-4">
-                        <span>{{$item->owner1?$item->owner1->name:''}}</span>
+                        <span>
+                          <a href="{{route('manager.client', Crypt::encrypt($item->owner1->id))}}">
+                          {{$item->owner1->name}}
+                          </a>
+                        </span>
                         <div class="text-gray-500">
-                            <div class="my-1">phone:<span><a href="tel:{{$item->owner1?$item->owner1->phone:''}}" class="mr-2">{{$item->owner1?$item->owner1->phone:''}}</a></span></div> 
-                            <div>Email:<span><a href="mailto:{{$item->owner1?$item->owner1->email:''}}">{{$item->owner1?$item->owner1->email:''}}</a></span></div> 
+                            <div class="my-1">phone:<span><a href="tel:{{$item->owner1->phone}}" class="mr-2">{{$item->owner1->phone}}</a></span></div> 
+                            <div>Email:<span><a href="mailto:{{$item->owner1->email}}">{{$item->owner1->email}}</a></span></div> 
                         </div>
                     </div>
                   </div>
+                  @endif
                 </x-table.cell>
                 <x-table.cell data-label="From">
                   <div class="flex items-center sm:flex-column sm:items-start">

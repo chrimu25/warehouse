@@ -6,24 +6,27 @@
                 Store ({{$items->count()}})
             </p>
             <div href="#" class="card-header-icon">
-              <label for="Search" class="label">Search</label>
-              <input class="input" type="search" placeholder="Search..." 
-              wire:model="searchKey">
-              <div class="flex">
-                <label for="" class="mr-2">Per Page</label>
-                <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
-                  leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
-                    <option value="">Per Page</option>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
+                <div class="flex items-center">
+                <label for="Search" class="label mx-2">Search</label>
+                <input class="input" type="search" placeholder="Search..." 
+                wire:model="searchKey">
+                </div>
+                <div class="flex items-center">
+                  <label for="" class="mx-2 w-full">Per Page</label>
+                  <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
+                    leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
+                      <option value="">Per Page</option>
+                      <option value="10">10</option>
+                      <option value="25">25</option>
+                      <option value="50">50</option>
+                  </select>
+                </div>
               </div>
-            </div>
         </x-table.header>
         <x-slot name="heading">
             <x-table.heading>#</x-table.heading>
             <x-table.heading>Item</x-table.heading>
+            <x-table.heading>Slot</x-table.heading>
             <x-table.heading>Owner</x-table.heading>
             <x-table.heading>Date</x-table.heading>
             <x-table.heading>Status</x-table.heading>
@@ -40,11 +43,18 @@
                     </div>
                   </div>
             </x-table.cell>
+            <x-table.cell data-label="Slot">{{$item->slot->exists()?$item->slot->name:''}}</x-table.cell>
             <x-table.cell data-label="Owner">
-                <div class="text-sm text-gray-900">{{$item->owner?$item->owner->name:''}}</div>
+                @if ($item->owner) 
+                <div class="text-sm text-gray-900">
+                    <a href="{{route('manager.client', Crypt::encrypt($item->owner->id))}}">
+                        {{$item->owner->name}}
+                    </a>
+                </div>
                 <div class="text-sm text-gray-500 flex sm:flex-column">
-                    <a href="tel:{{$item->owner?$item->owner->phone:''}}" class="mr-2">{{$item->owner?$item->owner->phone:''}}</a>
-                <a href="mailto:{{$item->owner?$item->owner->email:''}}">{{$item->owner?$item->owner->email:''}}</a></div>
+                    <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
+                <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                @endif
             </x-table.cell>
             <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} -
                 <span @if (\Carbon\Carbon::now()->gte($item->until)) class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
@@ -61,11 +71,11 @@
             <x-table.cell data-label="Options" class="flex justify-between">
                 @if (\Carbon\Carbon::createFromFormat('Y-m-d', date('Y-m-d'))->diffInDays(\Carbon\Carbon::createFromFormat('Y-m-d', $item->created_at->format('Y-m-d'))) >= 3)
                     
-                {{-- <button class="block px-4 mr-1 py-2 rounded w-full text-sm capitalize  
+                <button class="block px-4 mr-1 rounded w-full text-sm capitalize  
                     bg-gray-200 hover:bg-gray-100 text-gray-900" wire:click="invoice({{$item->id}})" 
                     wire:loading.attr="disabled">Invoice
-                </button>   --}}
-                <button class="block px-4 py-2 rounded w-full text-sm capitalize  
+                </button>  
+                <button class="block px-4 rounded w-full text-sm capitalize  
                     bg-blue-200 text-blue-900 hover:bg-blue-100" wire:click="moveOut({{$item->id}})" 
                     wire:loading.attr="disabled">Move Out
                 </button>

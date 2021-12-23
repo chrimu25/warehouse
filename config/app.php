@@ -167,6 +167,7 @@ return [
          * Package Service Providers...
          */
         LaravelDaily\Invoices\InvoiceServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -234,6 +235,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'Invoice' => LaravelDaily\Invoices\Facades\Invoice::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
     ],
 

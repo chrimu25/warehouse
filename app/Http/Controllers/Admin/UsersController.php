@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Validator;
 
 class UsersController extends Controller
@@ -43,5 +44,12 @@ class UsersController extends Controller
         session()->flash('success',$user->name.' Updated Successfully');
 
         return redirect()->route('admin.managers');
+    }
+
+    public function viewSingleClient($id)
+    {
+        $id = Crypt::decrypt($id);
+        $user = User::findOrFail($id);
+        return view('manager.single-client', compact('user'));
     }
 }

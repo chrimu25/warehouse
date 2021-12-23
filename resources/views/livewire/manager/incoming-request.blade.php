@@ -1,51 +1,4 @@
 <div>
-    <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  All Requests
-                </h3>
-                <h1>
-                  {{$all}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-            </div>
-          </div>
-        </div>
-        <div class="card">
-            <div class="card-content">
-              <div class="flex items-center justify-between">
-                <div class="widget-label">
-                  <h3>
-                    Pending
-                  </h3>
-                  <h1>
-                    {{$pending}}
-                  </h1>
-                </div>
-                <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
-              </div>
-            </div>
-          </div>
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Denied
-                </h3>
-                <h1>
-                  {{$denied}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
-            </div>
-          </div>
-        </div>
-    </div>
     <div class="min-w-full px-2 rounded shadow-md">
         <x-table>
             <x-table.header>
@@ -54,11 +7,13 @@
                     Store ({{$items->count()}})
                 </p>
                 <div href="#" class="card-header-icon">
-                  <label for="Search" class="label">Search</label>
+                  <div class="flex items-center">
+                  <label for="Search" class="label mx-2">Search</label>
                   <input class="input" type="search" placeholder="Search..." 
                   wire:model="searchKey">
-                  <div class="flex">
-                    <label for="" class="mr-2">Per Page</label>
+                  </div>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2 w-full">Per Page</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="perPage">
                         <option value="">Per Page</option>
@@ -67,8 +22,8 @@
                         <option value="50">50</option>
                     </select>
                   </div>
-                  <div class="flex">
-                    <label for="" class="mr-2">Status</label>
+                  <div class="flex items-center">
+                    <label for="" class="mx-2">Status</label>
                     <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 
                       leading-tight focus:outline-none focus:shadow-outline" wire:model.lazy="status">
                         <option value="">Default</option>
@@ -98,10 +53,16 @@
                       </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->owner?$item->owner->name:''}}</div>
+                    @if($item->owner)
+                    <div class="text-sm text-gray-900">
+                        <a href="{{route('manager.client', Crypt::encrypt($item->owner->id))}}">
+                            {{$item->owner->name}}
+                        </a>
+                        </div>
                     <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->owner?$item->owner->phone:''}}" class="mr-2">{{$item->owner?$item->owner->phone:''}}</a>
-                    <a href="mailto:{{$item->owner?$item->owner->email:''}}">{{$item->owner?$item->owner->email:''}}</a></div>
+                        <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
+                    <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                    @endif
                 </x-table.cell>
                 <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} -
                     <span @if (\Carbon\Carbon::now()->gte($item->until)) class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full
@@ -116,14 +77,6 @@
                       </span>
                 </x-table.cell>
                 <x-table.cell data-label="Options" class="flex justify-between"> 
-                    @if ($item->status=="Denied")
-                    <button class="block px-4 py-1 w-full text-sm capitalize text-gray-700 bg-red-300
-                      rounded hover:bg-red-200 hover:text-white" wire:click="delete({{$item->id}})" 
-                      wire:loading.attr="disabled">
-                      <span wire:loading.remove>Delete</span>
-                      <span wire:loading wire:target="invoice">Processing</span>
-                  </button>
-                    @else
                     <button class="block mr-1 px-4 py-1 w-full text-sm capitalize text-gray-700 bg-green-300
                         rounded hover:bg-green-200 hover:text-white" wire:click="Approve({{$item->id}})" 
                         wire:loading.attr="disabled">
@@ -136,7 +89,6 @@
                         <span wire:loading.remove>Deny</span>
                         <span wire:loading wire:target="invoice">Processing</span>
                     </button>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @empty

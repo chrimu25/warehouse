@@ -77,21 +77,10 @@
       <div class="bg-gray-800 py-6 mb-6">
         <div class="container px-4 text-center flex justify-center">
           <h1 class="text-gray-200 text-4xl">Stocks near you!</h1>
-          <form class="flex justify-between px-8">
-            <input
-              type="text"
-              placeholder="Type your favourable location"
-              class="p-3 border w-full"
-            />
-            <button
-              class="bg-blue-400 hover:opacity-75 px-4 text-white font-bold"
-            >
-              Search
-            </button>
-          </form>
+         
         </div>
       </div>
-      <div class="warehousesContainer">
+      <div class="warehousesContainer" id="warehouses">
         <div class="container warehouse px-4 sm:px-8 my-8">
           <div class="w-full">
             <h2 class="mb-6">Big Chemical and Electronics wareouse at Huye</h2>
@@ -105,7 +94,7 @@
               shot at established Fortune 500 companies
             </p>
           </div>
-          <div class="w-full flex justify-end">
+          <div class="w-full flex justify-centers md:justify-end">
             <img class="inline" src="images/chemImg.svg" alt="alternative" />
           </div>
         </div>
@@ -152,8 +141,8 @@
         <p class="mb-16 text-white lg:max-w-3xl lg:mx-auto">
           With few steps you can have your goods or crops stored safely
         </p>
-        <div class="flex justify-around mb-24">
-          <div class="w-full">
+        <div class="md:flex justify-around mb-24 items-center">
+          <div class="w-full items-center">
             <img src="/images/icons/search.svg" />
             <h4 class="text-white text-left my-2">
               Find your favourable Warehouse.

@@ -104,6 +104,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get all of the activities for the User
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function activities()
+    {
+        return $this->hasMany(Activity::class);
+    }
+
+    /**
      * Get all of the slots for the User
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
@@ -111,5 +121,10 @@ class User extends Authenticatable
     public function slots()
     {
         return $this->hasManyThrough(Slot::class, Warehouse::class);
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany(Invoice::class);
     }
 }

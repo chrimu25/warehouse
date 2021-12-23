@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UsersController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\Clients\ActivitiesController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Manager\ItemsController;
 use App\Models\Category;
 use App\Models\Province;
@@ -15,12 +16,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware('role:admin')->prefix('manager')->name('admin.')->group(function () {
+        Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('clients/{user}/view',[UsersController::class, 'viewSingleClient'])->name('client');
         Route::view('/categories', 'admin.categories')->name('categories');
         Route::view('/unities', 'admin.unities')->name('unities');
 
@@ -49,12 +50,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {
+      Route::get('/dashboard',[DashboardController::class, 'manager'])->name('dashboard');
+      Route::get('clients/{user}/view',[UsersController::class, 'viewSingleClient'])->name('client');
       Route::get('products/items/{item}', [ItemsController::class,'show'])->name('items.show'); 
       Route::view('slots', 'manager.slots')->name('slots'); 
       Route::view('store', 'manager.storage')->name('store'); 
       Route::view('incoming-requests', 'manager.requests')->name('requests'); 
       Route::view('checkins', 'manager.checkins')->name('checkins'); 
       Route::view('checkouts', 'manager.checkouts')->name('checkouts'); 
+      Route::view('invoices', 'manager.invoices')->name('invoices'); 
       Route::view('transfers', 'manager.transfers')->name('transfers'); 
       Route::view('outgoing-transfers', 'manager.outgoings')->name('outgoings');
       Route::view('products', 'manager.products')->name('products'); 
@@ -69,6 +73,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('checkins', 'client.checkins')->name('checkins');
         Route::view('checkouts', 'client.checkouts')->name('checkouts');
         Route::view('transfers', 'client.transfer')->name('transfer');
+        Route::view('invoices', 'client.invoices')->name('invoices');
         Route::view('adjustments', 'client.adjustments')->name('adjustment');
 
         Route::get('all-items/checkin/{item}', [ActivitiesController::class,'checkin'])->name('items.checkin');
