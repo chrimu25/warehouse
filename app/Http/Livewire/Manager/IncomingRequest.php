@@ -33,13 +33,7 @@ class IncomingRequest extends Component
 
     public function Deny($id)
     {
-        $product = Product::findOrFail($id);
-        $product->update([
-            'status'=>'Denied',
-            'incharge'=>Auth::id()
-        ]);
-        $user = User::findOrFail($product->owner->id);
-        $user->notify(new RequestRejectedNotification($product));
+        DenyRequest($id);
         $this->alert('success', 'Storage Request Rejected Successfully!', [
             'position' => 'center',
             'timer' => 4000,
@@ -50,15 +44,7 @@ class IncomingRequest extends Component
     
     public function Approve($id)
     {
-        $product = Product::findOrFail($id);
-        $product->update([
-            'status'=>'Approved',
-            'incharge'=>Auth::id(),
-            'created_at'=>Carbon::now(),
-        ]);
-        $slot = Slot::findOrFail($product->slot->id)->update(['taken'=>1]);
-        $user = User::findOrFail($product->owner->id);
-        $user->notify(new RequestApprovedNotification($product));
+        approveRequest($id);
         $this->alert('success', 'Storage Request Approved Successfully!', [
             'position' => 'center',
             'timer' => 4000,
@@ -70,7 +56,7 @@ class IncomingRequest extends Component
     public function render()
     {
         $items = Product::with('owner','category','unity','incharge1','item')
-                        ->where('status', '!=','Approved')
+                        ->where('status', 'Pending')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->where('out',0)
                         ->when($this->searchKey, function($query){
@@ -85,15 +71,9 @@ class IncomingRequest extends Component
                         })
                         ->orderBy('created_at')
                         ->paginate($this->perPage);
-        $all = Product::where('status', '!=','Approved')
+        $all = Product::where('status', 'Pending')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->where('out',0)->count();
-        $pending = Product::where('status','Pending')
-                        ->where('warehouse_id',Auth::user()->warehouse->id)
-                        ->where('out',0)->count();
-        $denied = Product::where('status','Denied')
-                        ->where('warehouse_id',Auth::user()->warehouse->id)
-                        ->where('out',0)->count();
-        return view('livewire.manager.incoming-request',compact('items','all','pending','denied'));
+        return view('livewire.manager.incoming-request',compact('items','all'));
     }
 }

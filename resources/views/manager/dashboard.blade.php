@@ -1,99 +1,145 @@
 <x-app-layout title="Dashboard">
 <section class="section main-section">
     <div class="grid gap-6 grid-cols-1 md:grid-cols-3 mb-6">
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Clients
-                </h3>
-                <h1>
-                  {{$whclients}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Clients
+              </h3>
+              <h1>
+                {{$whclients}}
+              </h1>
             </div>
+            <span class="icon widget-icon text-green-500"><i class="mdi mdi-account-multiple mdi-48px"></i></span>
           </div>
         </div>
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Slots
-                </h3>
-                <h1>
-                  {{Auth::user()->warehouse->slots->count()}}
-                </h1>
-              </div>
-              <div class="widget-label">
-                <h3>Accopied: {{Auth::user()->warehouse->fullSlots->count()}}</h3>
-                <h3>Empty Slots: {{Auth::user()->warehouse->EmptySlots->count()}}</h3>
-              </div>
-              <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Slots
+              </h3>
+              <h1>
+                {{Auth::user()->warehouse->slots->count()}}
+              </h1>
             </div>
+            <div class="widget-label">
+              <h3>Accopied: {{Auth::user()->warehouse->fullSlots->count()}}</h3>
+              <h3>Empty Slots: {{Auth::user()->warehouse->EmptySlots->count()}}</h3>
+            </div>
+            <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>
           </div>
         </div>
-
-        <div class="card">
-          <div class="card-content">
-            <div class="flex items-center justify-between">
-              <div class="widget-label">
-                <h3>
-                  Total Earnings
-                </h3>
-                <h1>
-                  {{Auth::user()->warehouse->invoices->sum('total_price')}}
-                </h1>
-              </div>
-              <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
+      </div>
+      <div class="card">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Total Earnings
+              </h3>
+              <h1>
+                {{Auth::user()->warehouse->invoices->sum('total_price')}}
+              </h1>
+            </div>
+            <span class="icon widget-icon text-red-500"><i class="mdi mdi-finance mdi-48px"></i></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="md:flex justify-between mb-10">
+      <div class="card w-full mr-4">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Top 5 With High Number of Requests
+              </h3>
+              <ul>
+                @forelse ($top5 as $user)
+                <li>
+                  <a href="{{route('manager.client', Crypt::encrypt($user->id))}}">
+                  {{$user->name.__(' ('.$user->items_count.')')}}
+                  </a>
+                </li>
+                @empty
+                    
+                @endforelse
+              </ul>
             </div>
           </div>
         </div>
       </div>
-    <div class="w-full">
-        <div class="card mb-6">
-            <header class="card-header">
-              <p class="card-header-title">
-                <span class="icon"><i class="mdi mdi-finance"></i></span>
-                Yearly Checkouts Trends
-              </p>
-            </header>
-            <div class="card-content">
-              <div class="chart-area">
-                <div class="h-full">
-                  <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-shrink">
-                      <div id="wh-checkouts"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+      <div class="card w-full">
+        <div class="card-content">
+          <div class="flex items-center justify-between">
+            <div class="widget-label">
+              <h3>
+                Clients with High Number Of Activities
+              </h3>
+              <ul>
+                @forelse ($top_activities as $user)
+                <li>
+                  <a href="{{route('manager.client', Crypt::encrypt($user->id))}}">
+                  {{$user->name.__(' ('.$user->activities_count.')')}}
+                  </a>
+                </li>
+                @empty
+                    
+                @endforelse
+              </ul>
             </div>
+          </div>
         </div>
+      </div>
     </div>
-
-    <div class="w-full">
-        <div class="card mb-6">
-            <header class="card-header">
-              <p class="card-header-title">
-                <span class="icon"><i class="mdi mdi-finance"></i></span>
-                Yearly Requests Trends
-              </p>
-            </header>
-            <div class="card-content">
-              <div class="chart-area">
-                <div class="h-full">
-                  <div class="chartjs-size-monitor">
-                    <div class="chartjs-size-monitor-shrink">
-                      <div id="wh-requests"></div>
+    <div class="md:flex justify-between">
+      <div class="w-full mr-2">
+          <div class="card mb-6">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span class="icon"><i class="mdi mdi-finance"></i></span>
+                  Yearly Warehouse Activities Trends
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="chart-area">
+                  <div class="h-full">
+                    <div class="chartjs-size-monitor">
+                      <div class="chartjs-size-monitor-shrink">
+                        <div id="wh-checkouts"></div>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-        </div>
+          </div>
+      </div>
+      <div class="w-full">
+          <div class="card mb-6">
+              <header class="card-header">
+                <p class="card-header-title">
+                  <span class="icon"><i class="mdi mdi-finance"></i></span>
+                  Yearly Requests Trends
+                </p>
+              </header>
+              <div class="card-content">
+                <div class="chart-area">
+                  <div class="h-full">
+                    <div class="chartjs-size-monitor">
+                      <div class="chartjs-size-monitor-shrink">
+                        <div id="wh-requests"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
     </div>
 
     {{-- <div class="w-full">
@@ -134,7 +180,10 @@
           }],
           chart: {
           type: 'bar',
-          height: 450
+          height: 400,
+          toolbar: {
+            show: false
+          }
         },
         plotOptions: {
           bar: {
@@ -145,7 +194,7 @@
           }
         },
         dataLabels: {
-          enabled: true,
+          enabled: false,
           offsetX: -6,
           style: {
             fontSize: '12px',
@@ -180,7 +229,10 @@
           }],
           chart: {
           type: 'bar',
-          height: 450
+          height: 400,
+          toolbar: {
+            show: false
+          }
         },
         plotOptions: {
           bar: {
@@ -191,7 +243,7 @@
           }
         },
         dataLabels: {
-          enabled: true,
+          enabled: false,
           offsetX: -6,
           style: {
             fontSize: '12px',

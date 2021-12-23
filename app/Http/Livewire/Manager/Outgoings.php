@@ -21,8 +21,7 @@ class Outgoings extends Component
 
     public function delete($id)
     {
-        $item = Transfer::findOrfail($id);
-        $item->delete();
+        deleteOutgoing($id);
         $this->alert('success', 'Transfer Request Deleted Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,
@@ -33,11 +32,7 @@ class Outgoings extends Component
     
     public function Approve($id)
     {
-        $transfer = Transfer::findOrFail($id);
-        $transfer->update([
-            'approved'=>1,
-            'incharge'=>Auth::id(),
-        ]);
+        ApproveOutgoing($id);
         $this->alert('success', 'Transfer Allowed Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,

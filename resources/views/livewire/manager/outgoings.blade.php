@@ -118,15 +118,21 @@
                   </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
+                  @if ($item->owner1)
                   <div class="flex items-center sm:flex-column sm:items-start">
                     <div class="ml-4">
-                        <span>{{$item->owner1?$item->owner1->name:''}}</span>
+                        <span>
+                          <a href="{{route('manager.client', Crypt::encrypt($item->owner1->id))}}">
+                          {{$item->owner1->name}}
+                          </a>
+                        </span>
                         <div class="text-gray-500">
-                            <div class="my-1">phone:<span><a href="tel:{{$item->owner1?$item->owner1->phone:''}}" class="mr-2">{{$item->owner1?$item->owner1->phone:''}}</a></span></div> 
-                            <div>Email:<span><a href="mailto:{{$item->owner1?$item->owner1->email:''}}">{{$item->owner1?$item->owner1->email:''}}</a></span></div> 
+                            <div class="my-1">phone:<span><a href="tel:{{$item->owner1->phone}}" class="mr-2">{{$item->owner1->phone}}</a></span></div> 
+                            <div>Email:<span><a href="mailto:{{$item->owner1->email}}">{{$item->owner1->email}}</a></span></div> 
                         </div>
                     </div>
                   </div>
+                  @endif
                 </x-table.cell>
                 <x-table.cell data-label="From">
                   <div class="flex items-center sm:flex-column sm:items-start">

@@ -15,19 +15,21 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
+    public function index()
+    {
+        if (Auth::user()->role=="Admin") {
+            return redirect(route('admin.dashboard'));
+        } elseif(Auth::user()->role=="Manager"){
+            return redirect(route('manager.dashboard'));
+        } elseif(Auth::user()->role=="Client"){
+            return redirect(route('client.items'));
+        }
+    }
+
     public function dashboard()
     {
-        // dd('som');
         $wh = Warehouse::where('active',1)->count();
-        $clients = User::where('role','Client')->where('status',1)->count();
-
-        // $product = json_encode(Product::where('warehouse_id',Auth::user()->warehouse->id)->distinct('owner_id')->pluck('owner_id'));
-        // $arr =[];
-        // foreach(json_decode($product) as $item){
-        //     $arr[] = $item;
-        // } 
-        // $whclients = User::whereIn('id',$arr)->count();
-        
+        $clients = User::where('role','Client')->where('status',1)->count();    
 
         $wh = Warehouse::where('active',1)->count();
         $clients = User::where('role','Client')->where('status',1)->count();
@@ -42,13 +44,6 @@ class DashboardController extends Controller
         $transferpie = $this->getMonthlyTransferPie();
         $requestpie = $this->getMonthlyRequestsPie();
 
-        // $whcheckouts = $this->getWarehouseCheckouts();
-        // $whcheckins = $this->getWarehouseCheckins();
-
-        // $whinrequests = $this->getWarehouseRequests();
-        // $whoutrequests = $this->getWarehouseOutRequests();
-
-        // dd($checkinspie);
         return view('dashboard', compact(
             'wh',
             'clients',
@@ -61,11 +56,36 @@ class DashboardController extends Controller
             'checkoutspie',
             'transferpie',
             'requestpie',
-            // 'whcheckouts',
-            // 'whcheckins',
-            // 'whinrequests',
-            // 'whoutrequests',
-            // 'whclients',
+        ));
+    }
+
+    public function manager()
+    {
+        $product = json_encode(Product::where('warehouse_id',Auth::user()->warehouse->id)->distinct('owner_id')->pluck('owner_id'));
+        $arr =[];
+        foreach(json_decode($product) as $item){
+            $arr[] = $item;
+        } 
+        $whclients = User::whereIn('id',$arr)->count();
+        $top5 = User::whereIn('id',$arr)
+        ->whereYear('created_at',date('Y'))
+        ->withCount('items')->orderByDesc('items_count')->limit(5)->get();
+        $top_activities = User::whereIn('id',$arr)
+        ->whereYear('created_at',date('Y'))
+        ->withCount('activities')->orderByDesc('activities_count')->get(5);
+        $whcheckouts = $this->getWarehouseCheckouts();
+        $whcheckins = $this->getWarehouseCheckins();
+
+        $whinrequests = $this->getWarehouseRequests();
+        $whoutrequests = $this->getWarehouseOutRequests();
+        return view('manager.dashboard', compact(
+            'whcheckouts',
+            'whcheckins',
+            'whinrequests',
+            'whoutrequests',
+            'whclients',
+            'top5',
+            'top_activities',
         ));
     }
 

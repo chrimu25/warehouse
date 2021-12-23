@@ -16,10 +16,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware('role:admin')->prefix('manager')->name('admin.')->group(function () {
+        Route::get('/dashboard',[DashboardController::class, 'dashboard'])->name('dashboard');
+        Route::get('clients/{user}/view',[UsersController::class, 'viewSingleClient'])->name('client');
         Route::view('/categories', 'admin.categories')->name('categories');
         Route::view('/unities', 'admin.unities')->name('unities');
 
@@ -48,6 +50,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {
+      Route::get('/dashboard',[DashboardController::class, 'manager'])->name('dashboard');
+      Route::get('clients/{user}/view',[UsersController::class, 'viewSingleClient'])->name('client');
       Route::get('products/items/{item}', [ItemsController::class,'show'])->name('items.show'); 
       Route::view('slots', 'manager.slots')->name('slots'); 
       Route::view('store', 'manager.storage')->name('store'); 

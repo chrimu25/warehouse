@@ -21,9 +21,13 @@ class Items extends Component
 
     public function delete($id)
     {
-        $item = Product::findOrfail($id);
-        $item->delete();
-        session()->flash('success','Product Deleted Successfully!');
+        deleteProduct($id);
+        $this->alert('success', 'Product Deleted Successfully!', [
+            'position' => 'center',
+            'timer' => 4000,
+            'toast' => true,
+            'width' => '700',
+        ]);
     }
 
     public function mount($item)
@@ -33,9 +37,7 @@ class Items extends Component
 
     public function moveOut($id)
     {
-        $product = Product::findOrFail($id);
-        $product->update(['out'=>1, 'incharge'=>Auth::id()]);
-        $slot = Slot::findOrFail($product->slot->id)->update(['taken'=>0]);
+        moveOutItem($id);
         $this->alert('success', 'product Moved Successfully!', [
             'position' => 'center',
             'timer' => 4000,
@@ -46,7 +48,7 @@ class Items extends Component
 
     public function render()
     {
-        $items = Product::with('owner','category','unity','incharge','item')
+        $items = Product::with('owner','category','unity','incharge1','item')
                         ->where('item_id',$this->item->id)
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->where('status','!=','Denied')

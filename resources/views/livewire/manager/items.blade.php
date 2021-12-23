@@ -42,10 +42,16 @@
                   </div>
             </x-table.cell>
             <x-table.cell data-label="Owner">
-                <div class="text-sm text-gray-900">{{$item->owner?$item->owner->name:''}}</div>
-                <div class="text-sm text-gray-500 flex sm:flex-column">
-                    <a href="tel:{{$item->owner?$item->owner->phone:''}}" class="mr-2">{{$item->owner?$item->owner->phone:''}}</a>
-                <a href="mailto:{{$item->owner?$item->owner->email:''}}">{{$item->owner?$item->owner->email:''}}</a></div>
+              @if ($item->owner)
+              <div class="text-sm text-gray-900">
+                <a href="{{route('manager.client', Crypt::encrypt($item->owner->id))}}">
+                  {{$item->owner->name}}
+                </a>
+                </div>
+              <div class="text-sm text-gray-500 flex sm:flex-column">
+                  <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
+              <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+              @endif
             </x-table.cell>
             <x-table.cell data-label="Date"> {{$item->created_at->format('Y-d-m')}} </x-table.cell>
             <x-table.cell data-label="Status">
@@ -56,7 +62,7 @@
                   </span>
             </x-table.cell>
             <x-table.cell data-label="Options" class="flex justify-between"> 
-              @if ($item->until->gte(\Carbon\Carbon::now()))  
+              @if ($item->status=="Approved")  
               <button class="inline-flex justify-center w-full rounded-md border 
               border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 
               hover:bg-gray-50" wire:click="moveOut({{$item->id}})" wire:loading.attr="disabled">

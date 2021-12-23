@@ -25,18 +25,18 @@ class Checkouts extends Component
 
     public function delete($id)
     {
-        $item = Product::findOrfail($id);
-        $item->delete();
-        session()->flash('success','Product Deleted Successfully!');
+        DeleteCheckout($id);
+        $this->alert('success', 'Checkout Request Deleted Successfully!', [
+            'position' => 'top-right',
+            'timer' => 4000,
+            'toast' => true,
+            'width' => '500',
+        ]);
     }
 
     public function Deny($id)
     {
-        $activity = Activity::findOrFail($id);
-        $activity->update(['status'=>'Rejected']);
-        
-        $user = User::findOrFail($activity->user_id);
-        $user->notify(new CheckoutDeniedNotification($activity));
+        DenyCheckout($id);
         $this->alert('success', 'Checkout Request Rejected Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,
@@ -47,15 +47,7 @@ class Checkouts extends Component
     
     public function Approve($id)
     {
-        $activity = Activity::findOrFail($id);
-        $activity->update(['status'=>'Approved']);
-        $product = Product::findOrFail($activity->product_id);
-        $product->update([
-            'quantity'=>$product->quantity - $activity->quantity,
-        ]);
-        
-        $user = User::findOrFail($activity->user_id);
-        $user->notify(new CheckoutApprovedNotification($activity));
+        ApproveCheckout($id);
         $this->alert('success', 'Checkout Request Approved Successfully!', [
             'position' => 'top-right',
             'timer' => 4000,

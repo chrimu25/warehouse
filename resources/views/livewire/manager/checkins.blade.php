@@ -116,7 +116,13 @@
                       </div>
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->user?$item->user->name:''}}</div>
+                    <div class="text-sm text-gray-900">
+                      @if($item->user)
+                      <a href="{{route('manager.client', Crypt::encrypt($item->user->id))}}">
+                      {{$item->user->name}}
+                      </a>
+                      @endif
+                    </div>
                     <div class="text-sm text-gray-500 flex sm:flex-column">
                         <a href="tel:{{$item->user?$item->user->phone:''}}" class="mr-2">{{$item->user?$item->user->phone:''}}</a>
                     <a href="mailto:{{$item->user?$item->user->email:''}}">{{$item->user?$item->user->email:''}}</a></div>

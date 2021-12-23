@@ -27,7 +27,6 @@
             <x-table.heading>#</x-table.heading>
             <x-table.heading>Contact Info</x-table.heading>
             <x-table.heading>Address</x-table.heading>
-            <x-table.heading>Invoice</x-table.heading>
             <x-table.heading>Status</x-table.heading>
             <x-table.heading>Options</x-table.heading>
         </x-slot>
@@ -42,7 +41,10 @@
                     </div>
                     @endif
                     <div class="ml-4">
-                        <span>{{$client->name}}</span>
+                        <span>
+                        <a href="{{route('manager.client', Crypt::encrypt($client->id))}}">
+                            {{$client->name}}
+                        </a></span>
                         <div class="text-gray-500">
                             <div class="my-1">phone:<span><a href="tel:{{$client->phone}}" class="mr-1">{{$client->phone}}</a></span></div> 
                             <div>Email:<span><a href="mailto:{{$client->email}}">{{$client->email}}</a></span></div> 
@@ -54,12 +56,6 @@
             <x-table.cell data-label="Address">
                 <div class="text-gray-500">
                     <div class="my-1">District:<span>{{$client->province?$client->province->name:''}}</span></div> 
-                    <div>Sector:<span> {{$client->sector?$client->sector->name:''}}</span></div> 
-                    <div>Cell:<span> {{$client->cell?$client->cell->name:''}}</span></div> 
-                </div>
-            </x-table.cell>
-            <x-table.cell data-label="Invoice">
-                <div class="text-gray-500">
                     <div>Sector:<span> {{$client->sector?$client->sector->name:''}}</span></div> 
                     <div>Cell:<span> {{$client->cell?$client->cell->name:''}}</span></div> 
                 </div>

@@ -113,10 +113,16 @@
                     {{$item->code}}
                 </x-table.cell>
                 <x-table.cell data-label="Owner">
-                    <div class="text-sm text-gray-900">{{$item->owner?$item->owner->name:''}}</div>
-                    <div class="text-sm text-gray-500 flex sm:flex-column">
-                        <a href="tel:{{$item->owner?$item->owner->phone:''}}" class="mr-2">{{$item->owner?$item->owner->phone:''}}</a>
-                    <a href="mailto:{{$item->owner?$item->owner->email:''}}">{{$item->owner?$item->owner->email:''}}</a></div>
+                  @if ($item->owner)
+                  <div class="text-sm text-gray-900">
+                    <a href="{{route('manager.client', Crypt::encrypt($item->owner->id))}}">
+                      {{$item->owner->name}}
+                    </a>
+                    </div>
+                  <div class="text-sm text-gray-500 flex sm:flex-column">
+                      <a href="tel:{{$item->owner->phone}}" class="mr-2">{{$item->owner->phone}}</a>
+                  <a href="mailto:{{$item->owner->email}}">{{$item->owner->email}}</a></div>
+                  @endif
                 </x-table.cell>
                 <x-table.cell data-label="Item"> {{$item->product?$item->product->item->name:''}}
                 </x-table.cell>

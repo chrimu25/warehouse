@@ -68,13 +68,13 @@
     </div>
     <div class="menu is-menu-main">
       <ul class="menu-list">
+        @if (Auth::user()->role == 'Admin')
         <li class="{{ request()->routeIs('dashboard')?'active':''}} ">
             <x-jet-nav-link href="{{ route('dashboard') }}">
                 <span class="icon"><i class="mdi mdi-desktop-mac text-white"></i></span>
                 <span class="menu-item-label text-white">{{ __('Dashboard') }}</span>
             </x-jet-nav-link>
         </li>
-        @if (Auth::user()->role == 'Admin')
         <li class="--set-active-tables-html">
             <a href="{{route('admin.checkins')}}">
               <span class="icon"><i class="mdi mdi-arrow-bottom-right-bold-outline"></i></span>
@@ -141,103 +141,107 @@
               <span class="menu-item-label">Unities</span>
             </a>
         </li>
-        @endif
-
-        @if (Auth::user()->role == 'Manager')
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.requests') }}">
-              <span class="icon"><i class="mdi mdi-allergy"></i></span>
-              <span class="menu-item-label">Requests</span>
-            </a>
+        @elseif (Auth::user()->role == 'Manager')
+        <li class="{{ request()->routeIs('manager.dashboard')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.dashboard') }}">
+              <span class="icon"><i class="mdi mdi-desktop-mac text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Dashboard') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-          <a href="{{ route('manager.store') }}">
-            <span class="icon"><i class="mdi mdi-store"></i></span>
-            <span class="menu-item-label">Store</span>
-          </a>
-      </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.slots') }}">
-              <span class="icon"><i class="mdi mdi-select-place"></i></span>
-              <span class="menu-item-label">Slots</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.requests')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.requests') }}">
+              <span class="icon"><i class="mdi mdi-allergy text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Requests') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.products') }}">
-              <span class="icon"><i class="mdi mdi-format-list-text"></i></span>
-              <span class="menu-item-label">Products</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.store')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.store') }}">
+              <span class="icon"><i class="mdi mdi-store text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Store') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.checkins') }}">
-              <span class="icon"><i class="mdi mdi-arrow-bottom-right-bold-outline"></i></span>
-              <span class="menu-item-label">Checkins</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.slots')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.slots') }}">
+              <span class="icon"><i class="mdi mdi-select-place text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Slots') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.checkouts') }}">
-              <span class="icon"><i class="mdi mdi-arrow-top-right-bold-outline"></i></span>
-              <span class="menu-item-label">Checkout</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.products')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.products') }}">
+              <span class="icon"><i class="mdi mdi-format-list-text text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Products') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.transfers') }}">
-              <span class="icon"><i class="mdi mdi-bank-transfer-in"></i></span>
-              <span class="menu-item-label">Incoming Transfers</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.checkins')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.checkins') }}">
+              <span class="icon"><i class="mdi mdi-arrow-bottom-right-bold-outline text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Checkins') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-          <a href="{{ route('manager.outgoings') }}">
-            <span class="icon"><i class="mdi mdi-bank-transfer-out"></i></span>
-            <span class="menu-item-label">Outgoing Transfers</span>
-          </a>
-      </li>
-        <li class="--set-active-tables-html">
-            <a href="{{ route('manager.clients') }}">
-              <span class="icon"><i class="mdi mdi-table"></i></span>
-              <span class="menu-item-label">Clients</span>
-            </a>
+        <li class="{{ request()->routeIs('manager.checkouts')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.checkouts') }}">
+              <span class="icon"><i class="mdi mdi-arrow-top-right-bold-outline text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Checkout') }}</span>
+          </x-jet-nav-link>
         </li>
-        <li class="--set-active-tables-html">
-          <a href="{{route('manager.invoices')}}">
-            <span class="icon"><i class="mdi mdi-account-cash"></i></span>
-            <span class="menu-item-label">Invoices</span>
-          </a>
+        <li class="{{ request()->routeIs('manager.transfers')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.transfers') }}">
+              <span class="icon"><i class="mdi mdi-bank-transfer-in text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Incoming Transfers') }}</span>
+          </x-jet-nav-link>
+        </li>
+        <li class="{{ request()->routeIs('manager.outgoings')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.outgoings') }}">
+              <span class="icon"><i class="mdi mdi-bank-transfer-out text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Outgoing Transfers') }}</span>
+          </x-jet-nav-link>
+        </li>
+        <li class="{{ request()->routeIs('manager.clients')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.clients') }}">
+              <span class="icon"><i class="mdi mdi-table text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Clients') }}</span>
+          </x-jet-nav-link>
+        </li>
+        <li class="{{ request()->routeIs('manager.invoices')?'active':''}} ">
+          <x-jet-nav-link href="{{ route('manager.invoices') }}">
+              <span class="icon"><i class="mdi mdi-account-cash text-white"></i></span>
+              <span class="menu-item-label text-white">{{ __('Invoices') }}</span>
+          </x-jet-nav-link>
         </li>
         @endif
 
         @if (Auth::user()->role == 'Client')
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.items')?'active':''}}">
           <a href="{{ route('client.items') }}">
             <span class="icon"><i class="mdi mdi-view-list"></i></span>
             <span class="menu-item-label">All Items</span>
           </a>
         </li>
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.requests.new')?'active':''}}">
           <a href="{{ route('client.requests.new') }}">
             <span class="icon"><i class="mdi mdi-plus-thick"></i></span>
             <span class="menu-item-label">New Requests</span>
           </a>
         </li>
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.checkins')?'active':''}}">
           <a href="{{ route('client.checkins') }}">
             <span class="icon"><i class="mdi mdi-arrow-bottom-right-bold-outline"></i></span>
             <span class="menu-item-label">CheckIns</span>
           </a>
         </li>
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.checkouts')?'active':''}}">
           <a href="{{ route('client.checkouts') }}">
             <span class="icon"><i class="mdi mdi-arrow-top-right-bold-outline"></i></span>
             <span class="menu-item-label">Checkouts</span>
           </a>
         </li>
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.transfer')?'active':''}}">
             <a href="{{ route('client.transfer') }}">
               <span class="icon"><i class="mdi mdi-bank-transfer"></i></span>
               <span class="menu-item-label">Transfers</span>
             </a>
         </li>
-        <li class="--set-active-tables-html">
+        <li class="--set-active-tables-html {{ request()->routeIs('client.invoices')?'active':''}}">
           <a href="{{ route('client.invoices') }}">
             <span class="icon"><i class="mdi mdi-bank-transfer"></i></span>
             <span class="menu-item-label">Invoices</span>
