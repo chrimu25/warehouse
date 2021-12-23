@@ -51,7 +51,7 @@
             <img src="images/icons/metal.svg" alt="alternative" />
           </div>
           <div class="card-body">
-            <h5 class="card-title">Timbers and metals</h5>
+            <h5 class="card-title">Timbers and metals storage</h5>
             <p class="mb-2">
               We are capable of storing large amount of metals and timbers and
               or their finished products
@@ -75,63 +75,67 @@
 
     <div id="details" class="pt-12 pb-16 lg:pt-16" id="warehouses">
       <div class="bg-gray-800 py-6 mb-6">
-        <div class="container px-4 text-center flex justify-center">
-          <h1 class="text-gray-200 text-4xl">Stocks near you!</h1>
-         
+        <div class="container px-4 text-center flex justify-between items-center">
+          <h1 class="text-gray-200 text-4xl w-full">Find your favourable stock!</h1>
+          <div class='flex justify-between w-full'>
+           <div class="w-full mx-1">
+              <p class='text-white text-left'>Location</p>
+              <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+              leading-tight focus:outline-none focus:shadow-outline" name="category" wire:model.lazy="category">
+                  <option value="" selected>Select Location</option>
+
+                  {{-- @forelse ($categories as $item)
+                  <option value="{{$item->id}}">{{$item->name}}</option>
+                  @empty
+                  <option value="" disabled>---- No categories Found ----</option>
+                  @endforelse --}}
+              </select>
+              <x-jet-input-error for="category" class="mt-2" />
+          </div>
+           <div class="w-full mx-1">
+              <p class='text-white text-left'>Products Category</p>
+              <select class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700
+              leading-tight focus:outline-none focus:shadow-outline" name="category" wire:model.lazy="category">
+                  <option value="" selected>Select Category</option>
+
+                  {{-- @forelse ($categories as $item)
+                  <option value="{{$item->id}}">{{$item->name}}</option>
+                  @empty
+                  <option value="" disabled>---- No categories Found ----</option>
+                  @endforelse --}}
+              </select>
+              <x-jet-input-error for="category" class="mt-2" />
+          </div>
+
+      </div>
         </div>
       </div>
       <div class="warehousesContainer" id="warehouses">
         <div class="container warehouse px-4 sm:px-8 my-8">
           <div class="w-full">
-            <h2 class="mb-6">Big Chemical and Electronics wareouse at Huye</h2>
+            <h2 class="mb-6">Big Chemical store</h2>
             <p class="mb-4">
-              Based on our team's extensive experience in developing line of
-              business applications and constructive customer feedback we
-              reached a new level of revenue.
+              Based on our team's extensive experience in developing
             </p>
-            <p class="mb-4">
-              We enjoy helping small and medium sized tech businesses take a
-              shot at established Fortune 500 companies
+            <p class="mb-4 font-bold">
+              We store following products
             </p>
+            <ul class=''>
+              <li>Beans</li>
+              <li>Beans</li>
+              <li>Beans</li>
+            </ul>
+            <button class="mt-3 bg-blue-400 hover:opacity-75 text-white font-bold py-2 px-4 rounded" type="submit"
+            wire:loading.remove wire:target="insert"
+            wire:loading.attr="disabled">
+               <a href='/request'>Request</a>
+            </button>
           </div>
           <div class="w-full flex justify-centers md:justify-end">
             <img class="inline" src="images/chemImg.svg" alt="alternative" />
           </div>
         </div>
-        <div class="container warehouse px-4 sm:px-8 my-8">
-          <div class="w-full">
-            <h2 class="mb-6">Big Chemical and Electronics wareouse at Huye</h2>
-            <p class="mb-4">
-              Based on our team's extensive experience in developing line of
-              business applications and constructive customer feedback we
-              reached a new level of revenue.
-            </p>
-            <p class="mb-4">
-              We enjoy helping small and medium sized tech businesses take a
-              shot at established Fortune 500 companies
-            </p>
-          </div>
-          <div class="w-full flex">
-            <img class="inline" src="images/chemImg.svg" alt="alternative" />
-          </div>
-        </div>
-        <div class="container warehouse px-4 sm:px-8">
-          <div class="w-full">
-            <h2 class="mb-6">Big Chemical and Electronics wareouse at Huye</h2>
-            <p class="mb-4">
-              Based on our team's extensive experience in developing line of
-              business applications and constructive customer feedback we
-              reached a new level of revenue.
-            </p>
-            <p class="mb-4">
-              We enjoy helping small and medium sized tech businesses take a
-              shot at established Fortune 500 companies
-            </p>
-          </div>
-          <div class="w-full flex justify-end">
-            <img class="inline" src="images/chemImg.svg" alt="alternative" />
-          </div>
-        </div>
+
       </div>
     </div>
 

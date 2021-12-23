@@ -17,6 +17,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/request', function () {
+    return view('request');
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
@@ -29,7 +33,7 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('warehouses', 'admin.warehouses')->name('warehouses');
         Route::get('warehouse/insert', function(){
             $categories = Category::select('name','id')->orderBy('name')->get();
-            
+
             return view('admin.create-edit-warehouse',compact('categories'));
         })->name('warehouses.create');
         Route::post('warehouse/store', [WarehousesController::class, 'store'])->name('warehouses.store');
@@ -63,19 +67,19 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {
       Route::get('/dashboard',[DashboardController::class, 'manager'])->name('dashboard');
       Route::get('clients/{user}/view',[UsersController::class, 'viewSingleClient'])->name('client');
-      Route::get('products/items/{item}', [ItemsController::class,'show'])->name('items.show'); 
-      Route::view('slots', 'manager.slots')->name('slots'); 
-      Route::view('store', 'manager.storage')->name('store'); 
-      Route::view('incoming-requests', 'manager.requests')->name('requests'); 
-      Route::view('checkins', 'manager.checkins')->name('checkins'); 
-      Route::view('checkouts', 'manager.checkouts')->name('checkouts'); 
-      Route::view('invoices', 'manager.invoices')->name('invoices'); 
-      Route::view('transfers', 'manager.transfers')->name('transfers'); 
+      Route::get('products/items/{item}', [ItemsController::class,'show'])->name('items.show');
+      Route::view('slots', 'manager.slots')->name('slots');
+      Route::view('store', 'manager.storage')->name('store');
+      Route::view('incoming-requests', 'manager.requests')->name('requests');
+      Route::view('checkins', 'manager.checkins')->name('checkins');
+      Route::view('checkouts', 'manager.checkouts')->name('checkouts');
+      Route::view('invoices', 'manager.invoices')->name('invoices');
+      Route::view('transfers', 'manager.transfers')->name('transfers');
       Route::view('outgoing-transfers', 'manager.outgoings')->name('outgoings');
-      Route::view('products', 'manager.products')->name('products'); 
-      Route::get('items/insert', [ItemsController::class,'create'])->name('products.insert'); 
-      Route::post('items/insert', [ItemsController::class,'store'])->name('products.store'); 
-      Route::view('contacts', 'manager.clients')->name('clients'); 
+      Route::view('products', 'manager.products')->name('products');
+      Route::get('items/insert', [ItemsController::class,'create'])->name('products.insert');
+      Route::post('items/insert', [ItemsController::class,'store'])->name('products.store');
+      Route::view('contacts', 'manager.clients')->name('clients');
 
     //   Exports
     Route::get('monthlyrequests',[ExportController::class,'warehouseMonthlyRequests'])->name('export.requests');
