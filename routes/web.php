@@ -48,6 +48,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('items', 'admin.items')->name('items');
         Route::view('store', 'admin.store')->name('store');
         Route::view('invoices', 'admin.invoices')->name('invoices');
+
+        // Export
+        Route::get('monthly-checkins',[ExportController::class,'MOnthlyCheckins'])->name('export.checkins');
+        Route::get('monthly-checkouts',[ExportController::class,'MOnthlyCheckouts'])->name('export.checkouts');
+        Route::get('yearly-checkins',[ExportController::class,'AllYearlyCheckins'])->name('export.checkins.yearly');
+        Route::get('yearly-checkouts',[ExportController::class,'AllYearlyCheckouts'])->name('export.checkouts.yearly');
+        Route::get('monthly-transfers',[ExportController::class,'MOnthlyTransfers'])->name('export.transfers');
+        Route::get('yearly-transfers',[ExportController::class,'AllYearlyTransfers'])->name('export.transfers.yearly');
+        Route::get('monthly-store',[ExportController::class,'MOnthlyStore'])->name('export.store');
+        Route::get('yearly-store',[ExportController::class,'AllYearlyStore'])->name('export.store.yearly');
     });
 
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {

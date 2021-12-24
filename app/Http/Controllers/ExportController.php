@@ -2,6 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Admin\CheckinsMultisheet;
+use App\Exports\Admin\CheckoutsMultisheet;
+use App\Exports\Admin\MonthlyCheckins;
+use App\Exports\Admin\MonthlyCheckouts;
+use App\Exports\Admin\MonthlyStore;
+use App\Exports\Admin\MonthlyTransfers;
+use App\Exports\Admin\StoreMultisheet;
+use App\Exports\Admin\TransfersMultisheet as AdminTransfersMultisheet;
 use App\Exports\Manager\Checkins;
 use App\Exports\Manager\CheckinsMultisheets;
 use App\Exports\Manager\Checkouts;
@@ -67,4 +75,46 @@ class ExportController extends Controller
     {
         return $excel->download(new RequestsMultisheet(date('Y')),Auth::user()->warehouse->code.' '.date('Y').' Requests.xlsx');
     }
+
+    // Super Admin Export
+    public function MOnthlyCheckins(Excel $excel)
+    {
+        return $excel->download(new MonthlyCheckins(), config('app.name').' '.date('F').' Checkins.xlsx');
+    }
+
+    public function AllYearlyCheckins(Excel $excel)
+    {
+        return $excel->download(new CheckinsMultisheet(date('Y')),config('app.name').' '.date('Y').' Checkins.xlsx');
+    }
+
+    public function MOnthlyCheckouts(Excel $excel)
+    {
+        return $excel->download(new MonthlyCheckouts(), config('app.name').' '.date('F').' Checkouts.xlsx');
+    }
+
+    public function AllYearlyCheckouts(Excel $excel)
+    {
+        return $excel->download(new CheckoutsMultisheet(date('Y')),config('app.name').' '.date('Y').' Checkouts.xlsx');
+    }
+
+    public function MOnthlyTransfers(Excel $excel)
+    {
+        return $excel->download(new MonthlyTransfers(), config('app.name').' '.date('F').' transfers.xlsx');
+    }
+
+    public function AllYearlyTransfers(Excel $excel)
+    {
+        return $excel->download(new AdminTransfersMultisheet(date('Y')),config('app.name').' '.date('Y').' transfers.xlsx');
+    }
+
+    public function MOnthlyStore(Excel $excel)
+    {
+        return $excel->download(new MonthlyStore(), config('app.name').' '.date('F').' Requests.xlsx');
+    }
+
+    public function AllYearlyStore(Excel $excel)
+    {
+        return $excel->download(new StoreMultisheet(date('Y')),config('app.name').' '.date('Y').' Requests.xlsx');
+    }
+
 }
