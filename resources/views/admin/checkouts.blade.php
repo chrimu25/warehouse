@@ -6,6 +6,18 @@
             <li>Requests</li>
             <li>CheckOuts</li>
           </ul>
+          <div>
+            <a href="{{ route('admin.export.checkouts.yearly') }}" class="button bg-green-300 text-green-900
+             space-x-3">
+              <span class="icon"><i class="mdi mdi-download"></i></span>
+              <span>Yearly Report</span>
+            </a>
+            <a href="{{ route('admin.export.checkouts') }}" class="button bg-green-300 text-green-900
+             space-x-3">
+              <span class="icon"><i class="mdi mdi-download"></i></span>
+              <span>Monthly Report</span>
+            </a>
+          </div>
         </div>
     </section>
     <div class="bg-gray-100">

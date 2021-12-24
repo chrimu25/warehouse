@@ -236,7 +236,6 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facades\Debugbar::class,
         'Invoice' => LaravelDaily\Invoices\Facades\Invoice::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-
     ],
 
 ];

@@ -38,7 +38,7 @@
                   Approved
                 </h3>
                 <h1>
-                  {{$denied}}
+                  {{$approved}}
                 </h1>
               </div>
               <span class="icon widget-icon text-blue-500"><i class="mdi mdi-cart-outline mdi-48px"></i></span>

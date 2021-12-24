@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\WarehousesController;
 use App\Http\Controllers\Clients\ActivitiesController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\Manager\ItemsController;
 use App\Models\Category;
 use App\Models\Province;
@@ -47,6 +48,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         Route::view('items', 'admin.items')->name('items');
         Route::view('store', 'admin.store')->name('store');
         Route::view('invoices', 'admin.invoices')->name('invoices');
+
+        // Export
+        Route::get('monthly-checkins',[ExportController::class,'MOnthlyCheckins'])->name('export.checkins');
+        Route::get('monthly-checkouts',[ExportController::class,'MOnthlyCheckouts'])->name('export.checkouts');
+        Route::get('yearly-checkins',[ExportController::class,'AllYearlyCheckins'])->name('export.checkins.yearly');
+        Route::get('yearly-checkouts',[ExportController::class,'AllYearlyCheckouts'])->name('export.checkouts.yearly');
+        Route::get('monthly-transfers',[ExportController::class,'MOnthlyTransfers'])->name('export.transfers');
+        Route::get('yearly-transfers',[ExportController::class,'AllYearlyTransfers'])->name('export.transfers.yearly');
+        Route::get('monthly-store',[ExportController::class,'MOnthlyStore'])->name('export.store');
+        Route::get('yearly-store',[ExportController::class,'AllYearlyStore'])->name('export.store.yearly');
     });
 
     Route::middleware('role:manager')->prefix('warehouse-manager')->name('manager.')->group(function () {
@@ -65,6 +76,18 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
       Route::get('items/insert', [ItemsController::class,'create'])->name('products.insert'); 
       Route::post('items/insert', [ItemsController::class,'store'])->name('products.store'); 
       Route::view('contacts', 'manager.clients')->name('clients'); 
+
+    //   Exports
+    Route::get('monthlyrequests',[ExportController::class,'warehouseMonthlyRequests'])->name('export.requests');
+    Route::get('monthlychekouts',[ExportController::class,'warehouseMonthlyCheckouts'])->name('export.checkouts');
+    Route::get('monthlychekins',[ExportController::class,'warehouseMonthlyCheckins'])->name('export.checkins');
+    Route::get('monthlyoutgoings',[ExportController::class,'warehouseMonthlyOutgoings'])->name('export.outgoings');
+    Route::get('monthlytransfers',[ExportController::class,'warehouseMonthlyTransfer'])->name('export.transfers');
+    Route::get('yearlycheckins',[ExportController::class,'YearlyCheckins'])->name('export.checkins.yearly');
+    Route::get('yearlycheckouts',[ExportController::class,'YearlyCheckouts'])->name('export.checkouts.yearly');
+    Route::get('yearlytransfers',[ExportController::class,'YearlyTransfers'])->name('export.transfers.yearly');
+    Route::get('yearlyoutgoing',[ExportController::class,'YearlyOutgoings'])->name('export.outgoing.yearly');
+    Route::get('yearlyrequests',[ExportController::class,'YearlyRequests'])->name('export.requests.yearly');
     });
 
     Route::middleware('role:client')->name('client.')->group(function () {

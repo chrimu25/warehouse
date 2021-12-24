@@ -59,7 +59,7 @@ class Checkouts extends Component
     public function render()
     {
         $items = Activity::with('user','product')
-                        ->where('type', 'checkout')
+                        ->where('type', 'Checkout')
                         ->where('warehouse_id',Auth::user()->warehouse->id)
                         ->when($this->searchKey, function($query){
                             $query->whereHas('user', function($query2){
