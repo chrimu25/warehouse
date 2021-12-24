@@ -4,8 +4,20 @@
           <ul>
             <li>{{Auth::user()->role}}</li>
             <li>Requests</li>
-            <li>OutGoiing Transfers</li>
+            <li>OutGoing Transfers</li>
           </ul>
+          <div>
+            <a href="{{ route('manager.export.outgoing.yearly') }}" class="button bg-green-300 text-green-900
+             space-x-3">
+              <span class="icon"><i class="mdi mdi-download"></i></span>
+              <span>Yearly Report</span>
+            </a>
+            <a href="{{ route('manager.export.outgoings') }}" class="button bg-green-300 text-green-900
+             space-x-3">
+              <span class="icon"><i class="mdi mdi-download"></i></span>
+              <span>Monthly Report</span>
+            </a>
+          </div>
         </div>
     </section>
     <div class="bg-gray-100">
