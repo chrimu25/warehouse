@@ -24,7 +24,7 @@
                 Slots
               </h3>
               <h1>
-                {{Auth::user()->warehouse->slots->count()}}
+                {{Auth::user()->warehouse->slots->count().__('/').Auth::user()->warehouse->num_of_slots}}
               </h1>
             </div>
             <div class="widget-label">

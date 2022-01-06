@@ -63,7 +63,6 @@ class WarehousesController extends Controller
 
         $warehouse->categories()->attach($request->category);
 
-
         return back()->with('success','Warehouse Inserted Successfully!');
     }
 
@@ -108,7 +107,6 @@ class WarehousesController extends Controller
             'name'=>'bail|required|string|unique:warehouses,name,'.$wh->id.'|max:60',
             'phone'=>'required|string|size:10|unique:warehouses,phone,'.$wh->id.'',
             'email'=>'email|required|string|max:120|unique:warehouses,email,'.$wh->id.'',
-            'category'=>'nullable|integer',
             'type'=>'required|string',
             'owner'=>'nullable|string|min:3|max:255',
             'fork_lifter'=>'nullable|integer',
@@ -130,7 +128,6 @@ class WarehousesController extends Controller
             'email'=>$request->email,
             'phone'=>$request->phone,
             'type'=>$request->type,
-            'category_id'=>$request->category,
             'owner'=>$request->owner,
             'fork_lifter'=>$request->fork_lifter,
             'num_of_slots'=>$request->slots,

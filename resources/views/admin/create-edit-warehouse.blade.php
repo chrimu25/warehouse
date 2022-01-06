@@ -44,6 +44,7 @@
                     </div>
                   </div>
                     <div class="my-2 md:flex justfy-between">
+                    @if(!isset($wh))
                     <div class="px-6 bg-white w-full sm:py-2">
                         <x-jet-label for="category" value="{{ __('Product Category') }}" />
                         <select id="category" name="category[]" multiple class="mt-1 block w-full sm:text-sm
@@ -57,6 +58,7 @@
                         </select>
                         <x-jet-input-error for="category" class="mt-2" />
                     </div>
+                    @endif
                     <div class="px-6 bg-white w-full sm:py-2">
                         <x-jet-label for="type" value="{{ __('Warehouse Type') }}" />
                         <select id="type" name="type" class="mt-1 block w-full sm:text-sm
